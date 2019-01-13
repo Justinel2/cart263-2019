@@ -21,6 +21,7 @@ let avatar = {
   ///////// NEW /////////
   vx: 5,
   vy: 5,
+  maxSpeed: 10,
   ///////////////////////
   maxSize: 64,
   size: 64,
