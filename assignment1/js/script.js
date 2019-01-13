@@ -18,11 +18,6 @@ const AVATAR_SIZE_LOSS = 1;
 let avatar = {
   x: 0,
   y: 0,
-  ///////// NEW /////////
-  vx: 5,
-  vy: 5,
-  maxSpeed: 10,
-  ///////////////////////
   maxSize: 64,
   size: 64,
   active: true,
@@ -33,6 +28,11 @@ let avatar = {
 let food = {
   x: 0,
   y: 0,
+  ///////// NEW /////////
+  vx: 5,
+  vy: 5,
+  maxSpeed: 10,
+  ///////////////////////
   size: 64,
   color: '#55cccc'
 }
