@@ -18,6 +18,10 @@ const AVATAR_SIZE_LOSS = 1;
 let avatar = {
   x: 0,
   y: 0,
+  ///////// NEW /////////
+  vx: 5,
+  vy: 5,
+  ///////////////////////
   maxSize: 64,
   size: 64,
   active: true,
