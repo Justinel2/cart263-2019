@@ -92,6 +92,14 @@ function updateAvatar() {
   }
 }
 
+// updateFood
+//
+// Set the position of the food based on its velocity, constrained to the canvas and randomly changes
+// the food's velocity to a random velocity based on its maximum speed.
+function updateFood() {
+  
+}
+
 // checkCollision()
 //
 // Calculate distance of avatar to food
