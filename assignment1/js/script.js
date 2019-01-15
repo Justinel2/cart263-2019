@@ -72,7 +72,7 @@ function draw() {
   // Otherwise we handle the game
   background(0);
   updateAvatar();
-  // updateFood();
+  updateFood();
   checkCollision();
   displayAvatar();
   displayFood();
@@ -101,6 +101,12 @@ function updateAvatar() {
 function updateFood() {
   food.x += food.vx;
   food.y += food.vy;
+  if (food.x - food.size/2 <=0 || food.x + food.size/2 >= width) {
+    food.vx = -food.vx;
+  }
+  if (food.y - food.size/2 <=0 || food.y + food.size/2 >= height) {
+    food.vy = -food.vy;
+  }
 }
 ///////////////////////
 
