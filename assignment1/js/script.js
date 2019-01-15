@@ -72,6 +72,7 @@ function draw() {
   // Otherwise we handle the game
   background(0);
   updateAvatar();
+  // updateFood();
   checkCollision();
   displayAvatar();
   displayFood();
@@ -92,13 +93,16 @@ function updateAvatar() {
   }
 }
 
+///////// NEW /////////
 // updateFood
 //
 // Set the position of the food based on its velocity, constrained to the canvas and randomly changes
 // the food's velocity to a random velocity based on its maximum speed.
 function updateFood() {
-  
+  food.x += food.vx;
+  food.y += food.vy;
 }
+///////////////////////
 
 // checkCollision()
 //
