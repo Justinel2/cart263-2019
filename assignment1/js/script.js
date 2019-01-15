@@ -72,7 +72,7 @@ function draw() {
   // Otherwise we handle the game
   background(0);
   updateAvatar();
-  // updateFood();
+  updateFood();
   checkCollision();
   displayAvatar();
   displayFood();
