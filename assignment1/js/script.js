@@ -5,6 +5,8 @@
 Circle Eater
 Pippin Barr
 
+modified by Justine Lardeux (40030920)
+
 A simple game in which the player controls a shrinking circle with their mouse and tries
 to overlap another circle (food) in order to grow bigger.
 
@@ -97,16 +99,19 @@ function updateAvatar() {
 // updateFood
 //
 // Set the position of the food based on its velocity, constrained to the canvas and randomly changes
-// the food's velocity to a random velocity based on its maximum speed.
+// the food's velocity to a random velocity based on its maximum speed and the frameCount.
 function updateFood() {
+  // Apply velocity on x and y position of the food
   food.x += food.vx;
   food.y += food.vy;
+  // if the food is at the end of the canvas, inverse the x or y velocity to make the food bounce back
   if (food.x - food.size/2 <=0 || food.x + food.size/2 >= width) {
     food.vx = -food.vx;
   }
   if (food.y - food.size/2 <=0 || food.y + food.size/2 >= height) {
     food.vy = -food.vy;
   }
+  // Every 50 frames, change the x and y velocity randomly according to the maxSpeed
   if(frameCount % 50 === 0) {
     food.vx = random(-food.maxSpeed,food.maxSpeed);
     food.vy = random(-food.maxSpeed,food.maxSpeed);
