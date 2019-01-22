@@ -5,6 +5,8 @@
 Raving Redactionist
 Pippin Barr
 
+modified by Justine Lardeux for Assignment 3
+
 You are redacting a document, but it keeps coming unredacted!
 Click the secret information to hide it, don't let all the
 secrets become revealed!
