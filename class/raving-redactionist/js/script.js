@@ -14,10 +14,6 @@ secrets become revealed!
 // A place to store the jQuery selection of all spans
 let $spans;
 
-/////////////NEW////////////
-let $secretCount
-////////////////////////////
-
 // When the document is loaded we call the setup function
 $(document).ready(setup);
 
@@ -31,12 +27,6 @@ function setup() {
   $spans.on('click',spanClicked);
   // Set an interval of 500 milliseconds to update the state of the page
   setInterval(update,500);
-
-  /////////////NEW////////////
-  // Set an event to find the secret words on mouseover
-  $secretCount = $('secret');
-  $spans.on('mouseover',spanHover)
-  ////////////////////////////
 };
 
 // spanClicked()
