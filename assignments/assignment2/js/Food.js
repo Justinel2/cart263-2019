@@ -28,8 +28,8 @@ class Food extends Agent {
   // and based on its maximum speed.
   update() {
     // Apply velocity on x and y position of the food
-    this.x += vx;
-    this.y += vy;
+    this.x += this.vx;
+    this.y += this.vy;
     // Inverse velocity when the food is at the end of the canvas so it stays in
     if (this.x <= 0 || this.x >= width) {
       this.vx = -this.vx
