@@ -16,6 +16,7 @@ let $spans;
 
 /////////////NEW////////////
 let $secretCount
+let $secrets
 ////////////////////////////
 
 // When the document is loaded we call the setup function
@@ -34,7 +35,7 @@ function setup() {
 
   /////////////NEW////////////
   // Set an event to find the secret words on mouseover
-  $secretCount = $('secret');
+  $secrets = $('secret');
   $spans.on('mouseover',spanHover)
   ////////////////////////////
 };
@@ -48,6 +49,7 @@ function setup() {
 // Select the secret-count span and et its text to be the value of the counter variable
 function spanHover() {
   $(this).addClass('found');
+  $(this).off('mouseover,spanHover');
 }
 ////////////////////////////
 
