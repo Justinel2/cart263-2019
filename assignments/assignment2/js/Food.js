@@ -20,8 +20,19 @@ class Food extends Agent {
     this.vx = random(-maxSpeed,maxSpeed);
     this.vy = random(-maxSpeed,maxSpeed);
   }
-  ///////////////////////////
 
+  // update()
+  //
+  // updates the position based on its velocity, constrained to the canvas (it shouldn't go off-screen)
+  // randomly changes the velocity every now and then (either based on probability or time/frames) to a
+  // random velocity based on its maximum speed
+  update() {
+    // Apply velocity on x and y position of the food
+    this.x += vx;
+    this.y += vy;
+    
+  }
+  ///////////////////////////
   // reset()
   //
   // Set position to a random location on the canvas
