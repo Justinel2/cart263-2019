@@ -52,7 +52,7 @@ function setup() {
 // Select the secret-count span and et its text to be the value of the counter variable
 function spanHover() {
   $(this).addClass('found');
-  $(this).off('mouseover,spanHover');
+  $(this).off();
   $secretCount++;
   $("span#secret-count").text($secretCount);
 }
@@ -88,24 +88,3 @@ function updateSpan() {
     $(this).addClass('revealed');
   }
 }
-
-// A version using anonymous functions:
-
-// $(document).ready(function () {
-//   $spans = $('span');
-//
-//   $spans.on('click',function () {
-//     $(this).removeClass('revealed');
-//     $(this).addClass('redacted');
-//   });
-//
-//   setInterval(function () {
-//     $spans.each(function () {
-//       let r = Math.random();
-//       if (r < 0.1) {
-//         $(this).removeClass('redacted');
-//         $(this).addClass('revealed');
-//       }
-//     });
-//   },500);
-// });
