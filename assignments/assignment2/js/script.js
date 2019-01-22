@@ -60,6 +60,9 @@ function draw() {
   if (avatar.collide(food)) {
     avatar.eat(food);
   }
+  /////////// NEW ///////////
+  food.update();
+  ///////////////////////////
   avatar.display();
   food.display();
 }
