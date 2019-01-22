@@ -39,6 +39,18 @@ function setup() {
   ////////////////////////////
 };
 
+/////////////NEW////////////
+// spanHover()
+//
+// Add a .found class to the element that was moused over so it highlights
+// Remove the mouseover event from the found element
+// Increase $secretCount by one
+// Select the secret-count span and et its text to be the value of the counter variable
+function spanHover() {
+  $(this).addClass('found');
+}
+////////////////////////////
+
 // spanClicked()
 //
 // When a span is clicked we remove its revealed class and add the redacted class
