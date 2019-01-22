@@ -52,7 +52,7 @@ function spanHover() {
   $(this).addClass('found');
   $(this).off('mouseover,spanHover');
   $secretCount++;
-  console.log($secretCount);
+  $("span#secret-count").text($secretCount);
 }
 ////////////////////////////
 
