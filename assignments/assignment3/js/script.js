@@ -15,8 +15,9 @@ secrets become revealed!
 let $spans;
 
 /////////////NEW////////////
-let $secretCount
-let $secrets
+let $secretCount = 0;
+let $secrets;
+console.log($secretCount);
 ////////////////////////////
 
 // When the document is loaded we call the setup function
@@ -50,6 +51,8 @@ function setup() {
 function spanHover() {
   $(this).addClass('found');
   $(this).off('mouseover,spanHover');
+  $secretCount++;
+  console.log($secretCount);
 }
 ////////////////////////////
 
