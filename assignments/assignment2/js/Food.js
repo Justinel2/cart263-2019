@@ -30,7 +30,13 @@ class Food extends Agent {
     // Apply velocity on x and y position of the food
     this.x += vx;
     this.y += vy;
-    
+    // Inverse velocity when the food is at the end of the canvas so it stays in
+    if (this.x <= 0 || this.x >= width) {
+      this.vx = -this.vx
+    }
+    if (this.y <= 0 || this.y >= height) {
+      this.vy = -this.vy
+    }
   }
   ///////////////////////////
   // reset()
