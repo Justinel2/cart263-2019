@@ -17,6 +17,8 @@ class Food extends Agent {
     this.minSize = minSize;
     this.maxSize = maxSize;
     this.maxSpeed = maxSpeed;
+    this.vx = random(-maxSpeed,maxSpeed);
+    this.vy = random(-maxSpeed,maxSpeed);
   }
   ///////////////////////////
 
