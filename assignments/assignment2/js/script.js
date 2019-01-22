@@ -64,12 +64,15 @@ function draw() {
   background(0);
 
   avatar.update();
-  if (avatar.collide(food)) {
-    avatar.eat(food);
-  }
+
   /////////// NEW ///////////
-  food.update();
+  for(let i=0;i<food.length;i++){
+      food[i].update();
+      if (avatar.collide(food[i])) {
+        avatar.eat(food[i]);
+      }
+      food[i].display();
+    }
   ///////////////////////////
   avatar.display();
-  food.display();
 }
