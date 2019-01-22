@@ -48,9 +48,14 @@ class Food extends Agent {
   //
   // Set position to a random location on the canvas
   // Set the size to a random size within the limits
+  // Randomly change velocity
   reset() {
     this.x = random(0,width);
     this.y = random(0,height);
     this.size = random(this.minSize,this.maxSize);
+    /////////// NEW ///////////
+    this.vx = random(-this.maxSpeed,this.maxSpeed);
+    this.vy = random(-this.maxSpeed,this.maxSpeed);
+    ///////////////////////////
   }
 }
