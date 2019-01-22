@@ -14,6 +14,10 @@ secrets become revealed!
 // A place to store the jQuery selection of all spans
 let $spans;
 
+/////////////NEW////////////
+let $secretCount
+////////////////////////////
+
 // When the document is loaded we call the setup function
 $(document).ready(setup);
 
