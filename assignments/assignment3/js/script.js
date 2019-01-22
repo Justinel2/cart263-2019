@@ -51,13 +51,13 @@ function setup() {
 // Remove the mouseover event from the found element
 // Increase $secretCount by one
 // Select the secret-count span and et its text to be the value of the counter variable
+// When all the 7 secrets are found, prompt the countFinished() function
 function spanHover() {
   $(this).addClass('found');
   $(this).off();
   $secretCount++;
   $("span#secret-count").text($secretCount);
-  if ($secretCount >= 2) {
-    console.log("finished!");
+  if ($secretCount >= 7) {
     countFinished();
   }
 }
