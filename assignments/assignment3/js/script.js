@@ -35,8 +35,8 @@ function setup() {
 
   /////////////NEW////////////
   // Set an event to find the secret words on mouseover
-  $secrets = $('secret');
-  $spans.on('mouseover',spanHover)
+  $secrets = $("span.secret");
+  $secrets.on('mouseover',spanHover)
   ////////////////////////////
 };
 
