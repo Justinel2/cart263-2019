@@ -19,7 +19,6 @@ let $spans;
 /////////////NEW////////////
 let $secretCount = 0;
 let $secrets;
-console.log($secretCount);
 ////////////////////////////
 
 // When the document is loaded we call the setup function
@@ -39,7 +38,9 @@ function setup() {
   /////////////NEW////////////
   // Set an event to find the secret words on mouseover
   $secrets = $("span.secret");
-  $secrets.on('mouseover',spanHover)
+  $secrets.on('mouseover',spanHover);
+
+  $("div.end").on('click',restart);
   ////////////////////////////
 };
 
@@ -55,6 +56,10 @@ function spanHover() {
   $(this).off();
   $secretCount++;
   $("span#secret-count").text($secretCount);
+  if ($secretCount >= 2) {
+    console.log("finished!");
+    countFinished();
+  }
 }
 ////////////////////////////
 
@@ -88,3 +93,24 @@ function updateSpan() {
     $(this).addClass('revealed');
   }
 }
+
+/////////////NEW////////////
+
+// countFinished()
+//
+// slide the current text to the top to give place to the ending page
+function countFinished() {
+  $("div.text").slideUp(2000);
+}
+
+// restart()
+//
+// When a response is clicked, the game paragraphs slide down, the secretCount
+// is back to zero, the spans are also all at their original states.
+function restart() {
+  $("div.text").slideDown(2000);
+  $secretCount = 0;
+  $secrets.removeClass('found');
+  spanClicked();
+}
+////////////////////////////

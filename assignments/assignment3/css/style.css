@@ -35,4 +35,16 @@ div {
 .found {
   background-color: #FFFF33;
 }
+
+.end {
+  font-size: 48pt;
+}
+
+.response {
+  color: red;
+}
+
+.response:hover {
+  background-color: #FFFF33;
+}
 /*********************/
