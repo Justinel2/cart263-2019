@@ -5,6 +5,9 @@
 OOP Circle Eater
 Pippin Barr
 
+ASSIGNMENT 2
+modified by Justine Lardeux (40030920)
+
 An Object-Oriented version of the Circle Eater program.
 The player moves a circle around with the mouse.
 Another circle represents food which the player eats by overlapping.
