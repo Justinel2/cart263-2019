@@ -50,7 +50,11 @@ function setup() {
 
   for (var i = 0; i < $objects.length; i++) {
     $("#table").append('<div class="object" id="toIdentify">sink</div>');
-    $('#toIdentify').attr("id",i)
+    $('#toIdentify').attr("id",i);
+    $('#'+i).css({"position": "absolute",
+    "margin-left": Math.floor((Math.random() * 50) + 1)+"%",
+    "margin-top": Math.floor((Math.random() * 20) + 1)+"%",
+    "transform": "rotate("+Math.floor((Math.random() * 359) + 1)+"deg)"});
   }
 
 };
