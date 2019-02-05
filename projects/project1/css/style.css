@@ -64,3 +64,7 @@ body {
   font-family: 'Orbitron', sans-serif;
   letter-spacing: 5px;
 }
+
+#hidden {
+  display: none;
+}
