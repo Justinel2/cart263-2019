@@ -5,6 +5,14 @@
 **********************************************/
 
 /* Just some general syling of the page for aesthetics */
-body {
 
+html, body {
+    height:100%;
+}
+
+body {
+  background-image: url("../assets/images/kitchen.jpg");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: center;
 }
