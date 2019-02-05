@@ -15,7 +15,7 @@ $objects[1] = "milk carton";
 $objects[2] = "soda can";
 $objects[3] = "egg carton";
 $objects[4] = "tea bag";
-$objects[5] = "banana peel";
+$objects[5] = "banana peal";
 $objects[6] = "apple core";
 $objects[7] = "receipt";
 $objects[8] = "dirty diaper";
@@ -49,12 +49,12 @@ function setup() {
   $trash = $("div#trash");
 
   for (var i = 0; i < $objects.length; i++) {
-    $("#table").append('<div class="object" id="toIdentify">sink</div>');
+    $("#table").append('<div class="object" id="toIdentify">'+$objects[i]+'</div>');
     $('#toIdentify').attr("id",i);
-    $('#'+i).css({"position": "absolute",
-    "margin-left": Math.floor((Math.random() * 50) + 1)+"%",
+    $('#'+i).css({"margin-left": Math.floor((Math.random() * 50) + 1)+"%",
     "margin-top": Math.floor((Math.random() * 20) + 1)+"%",
-    "transform": "rotate("+Math.floor((Math.random() * 359) + 1)+"deg)"});
+    "transform": "rotate("+Math.floor((Math.random() * 359) + 1)+"deg)",
+    "font-size": Math.floor((Math.random() * 11) + 10)+"px"});
   }
 
 };
