@@ -8,6 +8,7 @@
 
 html, body {
     height:100%;
+    margin: 0;
 }
 
 body {
@@ -15,4 +16,32 @@ body {
   background-repeat: no-repeat;
   background-size: auto 100%;
   background-position: center;
+}
+
+.container {
+  margin-left: calc((100vw - 141.8637vh)/2);
+  position: relative;
+  border-width: medium;
+  border-color: black;
+  height: 100%;
+  width: 141.8637vh;
+  clear: both;
+}
+
+.top-row {
+  height: 50%;
+}
+
+#table {
+  float: left;
+  width: 60%;
+  padding-top: 5vh;
+  height: 35vh;
+}
+
+#sink {
+  float: left;
+  width: 30%;
+  padding-top: 20vh;
+  height: 20vh;
 }
