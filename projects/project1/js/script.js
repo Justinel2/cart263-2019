@@ -10,6 +10,7 @@ let $sink;
 let $recycling;
 let $trash;
 
+$objects[0] = "dogs hair";
 $objects[1] = "milk carton";
 $objects[2] = "soda can";
 $objects[3] = "egg carton";
@@ -48,7 +49,8 @@ function setup() {
   $trash = $("div#trash");
 
   for (var i = 0; i < $objects.length; i++) {
-    $("#table").append('<div id="newDiv"></div>');
+    $("#table").append('<div class="object" id="toIdentify">sink</div>');
+    $('#toIdentify').attr("id",i)
   }
 
 };
