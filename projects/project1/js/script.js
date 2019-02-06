@@ -76,13 +76,13 @@ function setup() {
           return;
         }
         else if (collision($(this),$sink)) {
-          $(this).css('background-color', 'yellow');
+          $(this).css('color', '#444444');
         }
         else if (collision($(this),$recycling)) {
-          $(this).css('background-color', 'blue');
+          $(this).css('display', 'none');
         }
         else if (collision($(this),$trash)) {
-          $(this).css('background-color', 'red');
+          $(this).css('display', 'none');
         }
       }
     })
