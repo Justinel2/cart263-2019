@@ -14,10 +14,6 @@ html, body {
 }
 
 body {
-  background-image: url("../assets/images/kitchen.jpg");
-  background-repeat: no-repeat;
-  background-size: auto 100%;
-  background-position: center;
 }
 
 .intro, .final {
@@ -30,16 +26,16 @@ body {
   font-family: 'Orbitron', sans-serif;
 }
 .intro {
-  display: none;
+  display: visible;
   background-color: white;
 }
 .final {
-  display: visible;
+  display: none;
+  background-color: white;
   background-image: url("../assets/images/final2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  opacity: 0.5;
 }
 
 h1, button {
@@ -48,10 +44,13 @@ h1, button {
 }
 
 p {
+  font-family: 'Orbitron', sans-serif;
   font-size: 25px;
+  background-color: white;
 }
 
 .container {
+  display: visible;
   margin-left: calc((100vw - 141.8637vh)/2);
   position: relative;
   border-width: medium;
@@ -59,6 +58,10 @@ p {
   height: 100%;
   width: 141.8637vh;
   clear: both;
+  background-image: url("../assets/images/kitchen.jpg");
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position: center;
 }
 
 .top-row {

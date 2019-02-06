@@ -11,7 +11,7 @@ let $sink;
 let $recycling;
 let $trash;
 
-let totalDiscared = 0;
+let totalDiscarded = 0;
 let wellRecycled = 0;
 let notWashed = 0;
 let wellTrashed = 0;
@@ -93,7 +93,10 @@ function setup() {
         }
         else if (collision($(this),$trash)) {
           $(this).css('display', 'none');
-          calculateTrash();
+          calculateTrash($(this));
+        }
+        if (totalDiscarded >= 2) {
+          displayPoints();
         }
       }
     })
@@ -122,7 +125,6 @@ function collision($div1, $div2) {
   }
 
   function calculateRecycling($this){
-    totalDiscared++;
 
     if ($this.attr("id") == "1" || $this.attr("id") == "2" || $this.attr("id") == "3" || $this.attr("id") == "10"
     || $this.attr("id") == "11" || $this.attr("id") == "12" || $this.attr("id") == "13" || $this.attr("id") == "14"
@@ -138,10 +140,10 @@ function collision($div1, $div2) {
     else {
       displaced++;
     }
+    totalDiscarded++;
   }
 
   function calculateTrash($this){
-    totalDiscared++;
 
     if ($this.attr("id") == "0" || $this.attr("id") == "4" || $this.attr("id") == "5" || $this.attr("id") == "6"
     || $this.attr("id") == "7" || $this.attr("id") == "8" || $this.attr("id") == "9" || $this.attr("id") == "15"
@@ -151,4 +153,15 @@ function collision($div1, $div2) {
     else {
       displaced++;
     }
+    totalDiscarded++;
+  }
+
+  function displayPoints() {
+    $(".container").css('display','none');
+    $(".final").show();
+    $(".final").append('<p>Items well recycled:'+wellRecycled+'</p>');
+    $(".final").append('<p>Items well trashed:'+wellTrashed+'</p>');
+    $(".final").append('<p>Items not washed before recycled:'+notWashed+'</p>');
+    $(".final").append('<p>Items misplaced:'+displaced+'</p>');
+    $(".final").append('<p>Total amount of items:'+totalDiscarded+'</p>');
   }
