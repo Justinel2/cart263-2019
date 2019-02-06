@@ -58,7 +58,20 @@ function setup() {
     "font-size": Math.floor((Math.random() * 11) + 10)+"px"});
   }
 
-  $("div > div > div", $objects).draggable();
+  $("div > div", $objects).draggable({
+    start: function(){
+      $(this).animate("transform", "rotate(0deg)");
+      $(this).animate({
+        borderSpacing: -360 }, {
+        step: function(now,fx) {
+          $(this).css('transform','rotate('+now+'deg)');
+        },
+        duration:'slow'
+      },'linear');
+    },
+    stop: function(){
+    }
+  });
 };
 
 // $('#content').on('mouseover', '.master', function () {
