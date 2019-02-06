@@ -11,6 +11,12 @@ let $sink;
 let $recycling;
 let $trash;
 
+let totalDiscared = 0;
+let wellRecycled = 0;
+let notWashed = 0;
+let wellTrashed = 0;
+let displaced = 0;
+
 objects[0] = "dogs hair";
 objects[1] = "milk carton";
 objects[2] = "soda can";
@@ -76,13 +82,16 @@ function setup() {
           return;
         }
         else if (collision($(this),$sink)) {
-          $(this).css('color', '#444444');
+          $(this).css('color', 'rgb(68, 68, 68)');
+          // $(this).addClass('washed');
         }
         else if (collision($(this),$recycling)) {
+          calculateRecycling($(this));
           $(this).css('display', 'none');
         }
         else if (collision($(this),$trash)) {
           $(this).css('display', 'none');
+          calculateTrash();
         }
       }
     })
@@ -105,4 +114,20 @@ function collision($div1, $div2) {
 
       if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
       return true;
+  }
+
+  function calculateRecycling($this){
+    totalDiscared++;
+
+    if ($this.attr("id") == "1" || $this.attr("id") == "2" || $this.attr("id") == "3" || $this.attr("id") == "10"
+    || $this.attr("id") == "11" || $this.attr("id") == "12" || $this.attr("id") == "13" || $this.attr("id") == "14"
+    || $this.attr("id") == "15" || $this.attr("id") == "18" || $this.attr("id") == "19" || $this.attr("id") == "21"
+    || $this.attr("id") == "22" || $this.attr("id") == "23") {
+      if ($this.css('color') == 'rgb(68, 68, 68)') {
+        wellRecycled++;
+      }
+      else {
+        notWashed++;
+      }
     }
+  }
