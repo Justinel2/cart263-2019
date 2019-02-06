@@ -20,6 +20,27 @@ body {
   background-position: center;
 }
 
+.intro {
+  z-index: 1;
+  position: absolute;
+  display: visible;
+  padding-top: 10%;
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+}
+
+h1, button {
+  font-size: 5vw;
+  font-family: 'Orbitron', sans-serif;
+}
+
+p {
+  font-size: 25px;
+}
+
 .container {
   margin-left: calc((100vw - 141.8637vh)/2);
   position: relative;

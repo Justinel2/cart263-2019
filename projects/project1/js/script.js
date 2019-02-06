@@ -140,7 +140,7 @@ function collision($div1, $div2) {
 
     if ($this.attr("id") == "0" || $this.attr("id") == "4" || $this.attr("id") == "5" || $this.attr("id") == "6"
     || $this.attr("id") == "7" || $this.attr("id") == "8" || $this.attr("id") == "9" || $this.attr("id") == "15"
-    || $this.attr("id") == "16" || $this.attr("id") == "17" || $this.attr("id") == "20" {
+    || $this.attr("id") == "16" || $this.attr("id") == "17" || $this.attr("id") == "20") {
       wellTrashed++;
     }
     else {
