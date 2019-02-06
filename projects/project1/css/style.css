@@ -13,9 +13,6 @@ html, body {
     overflow: hidden;
 }
 
-body {
-}
-
 .intro, .final {
   padding-top: 10%;
   position: absolute;

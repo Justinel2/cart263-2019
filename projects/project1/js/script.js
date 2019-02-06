@@ -72,7 +72,7 @@ function setup() {
   var waterSoundFX = document.createElement("audio");
 
   waterSoundFX.src = "../assets/sounds/water.wav";
-  waterSoundFX.volume = 1;
+  waterSoundFX.volume = .2;
   waterSoundFX.autoPlay = false;
   waterSoundFX.preLoad = true;
   waterSoundFX.controls = true;
@@ -81,7 +81,7 @@ function setup() {
   var trashSoundFX = document.createElement("audio");
 
   waterSoundFX.src = "../assets/sounds/trash.wav";
-  waterSoundFX.volume = 1;
+  waterSoundFX.volume = .2;
   waterSoundFX.autoPlay = false;
   waterSoundFX.preLoad = true;
   waterSoundFX.controls = true;
@@ -146,7 +146,7 @@ function setup() {
           // Hide the item
           $(this).css('display', 'none');
           // Play trash sound effect
-          trashSoundFX.play();
+          waterSoundFX.play();
         }
         // If there is overlap of the item and the trash can
         else if (collision($(this),$trash)) {
@@ -155,7 +155,7 @@ function setup() {
           // Calculate the score for the trash
           calculateTrash($(this));
           // Play trash sound effect
-          trashSoundFX.play();
+          waterSoundFX.play();
         }
         // If all the items are discarded, display the score
         if (totalDiscarded >= objects.length) {
