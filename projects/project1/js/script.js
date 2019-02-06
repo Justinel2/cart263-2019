@@ -58,9 +58,9 @@ function setup() {
     "font-size": Math.floor((Math.random() * 11) + 10)+"px"});
   }
 
-  $("div > div", $objects).draggable({
+  $("div > div > div > div", $objects).draggable({
     start: function(){
-      $(this).animate("transform", "rotate(0deg)");
+
       $(this).animate({
         borderSpacing: -360 }, {
         step: function(now,fx) {
@@ -68,53 +68,41 @@ function setup() {
         },
         duration:'slow'
       },'linear');
+
     },
     stop: function(){
+
+        if (collision($(this),$table)) {
+          return;
+        }
+        else if (collision($(this),$sink)) {
+          $(this).css('background-color', 'yellow');
+        }
+        else if (collision($(this),$recycling)) {
+          $(this).css('background-color', 'blue');
+        }
+        else if (collision($(this),$trash)) {
+          $(this).css('background-color', 'red');
+        }
+      }
+    })
+  };
+
+
+function collision($div1, $div2) {
+      var x1 = $div1.offset().left;
+      var y1 = $div1.offset().top;
+      var h1 = $div1.outerHeight(true);
+      var w1 = $div1.outerWidth(true);
+      var b1 = y1 + h1;
+      var r1 = x1 + w1;
+      var x2 = $div2.offset().left;
+      var y2 = $div2.offset().top;
+      var h2 = $div2.outerHeight(true);
+      var w2 = $div2.outerWidth(true);
+      var b2 = y2 + h2;
+      var r2 = x2 + w2;
+
+      if (b1 < y2 || y1 > b2 || r1 < x2 || x1 > r2) return false;
+      return true;
     }
-  });
-};
-
-// $('#content').on('mouseover', '.master', function () {
-//   // Make it draggable...
-//   $(this).draggable({
-//     // The start property takes a function that is called when dragging starts
-//     start: function () {
-//       // If they do start dragging it
-//       // Now we can safely make the one we're dragging not the master
-//       // $(this).removeClass('master');
-//     },
-//     // The stop property contains a function that is called when the dragging is stopped
-//     // e.g. the mouse is released
-//     stop: function () {
-//       // Did they drag it far enough out of the interface area?
-//       if ((Math.abs($(this).position().top) > $(window).height() * 0.85) && (Math.abs($(this).position().left) < 180)) {
-//         // If not, then remove the dragged element entirely because it's not far enough onto the beach
-//         $(this).remove();
-//         // Return immediately to avoid the rest of this function
-//         return;
-//       }
-
-
-
-
-      // If we get here, it was dragged onto th ebeach, so...
-      //
-      // // We can make it resizable (the CSS class, not the jQuery yet)
-      // $(this).addClass('resizable');
-      // $(this).resizable({
-      //   aspectRatio: true, // Maintain the aspect ratio
-      // });
-      // // We need to explicitly call resizable with 'enable' in case
-      // // this element had been disabled previously.
-      // $(this).resizable('enable');
-
-      // // When the user stops dragging, we should turn on the music
-      // // if this is the first time they've interacted.
-      // handleMusic();
-      //
-      // // Fade out the instructions
-      // // (If they're already faded out, this won't do anything)
-      // $('#instruction').addClass('fader');
-    // }
-  // });
-// });
