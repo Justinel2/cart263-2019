@@ -64,6 +64,8 @@ function setup() {
     "font-size": Math.floor((Math.random() * 11) + 10)+"px"});
   }
 
+  $('#start').on('click',startGame);
+
   $("div > div > div > div", $objects).draggable({
     start: function(){
 
@@ -97,6 +99,9 @@ function setup() {
     })
   };
 
+function startGame(){
+  $('.intro').css('display', 'none');
+}
 
 function collision($div1, $div2) {
       var x1 = $div1.offset().left;
