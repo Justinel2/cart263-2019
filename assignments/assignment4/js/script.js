@@ -35,7 +35,7 @@ function setup() {
   // Get the cent element from the page
   $cent = $('#cent');
   // Make it draggrable
-  $cent.draggable();
+  $cent.draggable({ revert: "invalid" });
 
   // Get the mouth element from the page
   $mouth = $('#mouth');
@@ -62,7 +62,6 @@ function flyDropped (event,ui) {
   // When we drop the fly into the mouth we should remove the fly from the page
   // ui contains a reference to the draggable element that was just dropped in ui.draggable
   // .remove() removes the select element from the page
-  if 
   ui.draggable.remove(); // $fly.remove() would work here too
   // We should "close the mouth" by changing its image
   // .attr() lets us change specific attributes on HTML element by specifying the attribute
