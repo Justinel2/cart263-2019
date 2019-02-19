@@ -36,7 +36,11 @@ function setup() {
   // Get the cent element from the page
   $cent = $('#cent');
   // Make it draggrable
-  $cent.draggable({ revert: "invalid" });
+  $cent.draggable({
+    revert: "invalid",
+
+    start: centDraggued
+  });
 
   // Get the mouth element from the page
   $mouth = $('#mouth');
@@ -76,6 +80,9 @@ function flyDropped (event,ui) {
   setInterval(chew,250);
 }
 
+function centDraggued(event,ui) {
+  chachingSFX.play();
+}
 // chew()
 //
 // Swaps the mouth image between closed and open and plays the crunching SFX
