@@ -17,6 +17,7 @@ Chewing: https://freesound.org/people/InspectorJ/sounds/412068/
 // Sound effects for the experience
 let buzzSFX = new Audio("assets/sounds/buzz.mp3");
 let crunchSFX = new Audio("assets/sounds/crunch.wav");
+let chachingSFX = new Audio("assets/sounds/chaching.wav");
 
 // Variable to hold our two key elements
 let $mouth;
