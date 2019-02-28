@@ -1,0 +1,13 @@
+/*********************************************
+
+
+
+**********************************************/
+
+/* Just some general syling of the page for aesthetics */
+
+html, body {
+    height:100%;
+    margin: 0;
+    overflow: hidden;
+}
