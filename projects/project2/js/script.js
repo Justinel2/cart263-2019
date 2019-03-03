@@ -26,7 +26,7 @@ $(document).ready(setup);
 function setup() {
 
   $signInPage = $("#signin");
-  $homePage = $("home");
+  $homePage = $("#home");
   $scorePage = $("#score");
 
   $restartButton = $("#restart");

@@ -82,6 +82,9 @@ html, body {
 
 #home {
   display: none;
+  background-image:url("../assets/images/snowboard.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #fourchan {
