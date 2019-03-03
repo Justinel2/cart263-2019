@@ -23,7 +23,9 @@ function setup() {
   $restartButton.on('click',turnOffGame);
   };
 
-
+function restartGame() {
+  Program.restart();
+}
 
 
 // startGame()
