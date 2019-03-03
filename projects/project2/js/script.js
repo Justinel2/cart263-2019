@@ -14,6 +14,8 @@ let $scorePage;
 let $restartButton;
 let $offButton;
 
+let n = 0;
+
 // When the document is loaded we call the setup function
 $(document).ready(setup);
 
@@ -24,22 +26,31 @@ $(document).ready(setup);
 function setup() {
 
   $signInPage = $("#signin");
+  $homePage = $("home");
   $scorePage = $("#score");
 
   $restartButton = $("#restart");
-  $offButton = $("turnoff");
+  $offButton = $("#turnoff");
 
   $restartButton.on('click',restartGame);
   $restartButton.on('click',turnOffGame);
-  };
+
+  $('#sign-in-button').on('click',signIn);
+}
 
 function restartGame() {
   // script.restart();
 }
 
 function turnOffGame() {
-  $scorePage.css('display','initial');
+  $scorePage.css('display','block');
 }
+
+function signIn() {
+  $signInPage.css('display','none');
+  $homePage.css('display','block');
+}
+
 
 // startGame()
 //

@@ -10,17 +10,21 @@ html, body {
     height:100%;
     width: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
-#signin {
-  position: relative;
+.page {
   margin: 0;
   height: 100%;
   width: 100%;
+}
+
+#signin {
+  display: block;
+  position: relative;
   background-image: linear-gradient(to bottom right, #A9C2BA, #1E47D7);
   overflow: hidden;
   text-align: center;
-  /* display: none; */
 }
 
 #user {
@@ -44,6 +48,14 @@ html, body {
   width: 100%;
   border-width:0px;
   border:none;
+  border-radius: 20px;
+  outline-width: 0;
+}
+
+#sign-in-button {
+  margin-top: 1vh;
+  border: none;
+  background-color: 0;
   border-radius: 20px;
   outline-width: 0;
 }
