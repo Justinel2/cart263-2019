@@ -5,8 +5,14 @@
 ******************/
 
 // Variables
-$restartButton;
-$offButton;
+let $signInPage;
+let $homePage;
+let $fourChanPage;
+let $journalPage;
+let $scorePage;
+
+let $restartButton;
+let $offButton;
 
 // When the document is loaded we call the setup function
 $(document).ready(setup);
@@ -16,17 +22,24 @@ $(document).ready(setup);
 //
 // Function initiating the program
 function setup() {
-  let $restartButton = $("#restart");
-  let $offButton = $("turnoff");
+
+  $signInPage = $("#signin");
+  $scorePage = $("#score");
+
+  $restartButton = $("#restart");
+  $offButton = $("turnoff");
 
   $restartButton.on('click',restartGame);
   $restartButton.on('click',turnOffGame);
   };
 
 function restartGame() {
-  Program.restart();
+  // script.restart();
 }
 
+function turnOffGame() {
+  $scorePage.css('display','initial');
+}
 
 // startGame()
 //

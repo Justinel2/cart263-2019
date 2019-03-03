@@ -12,7 +12,7 @@ html, body {
     margin: 0;
 }
 
-.signin {
+#signin {
   position: relative;
   margin: 0;
   height: 100%;
@@ -68,14 +68,14 @@ html, body {
   padding-top: 0.5vh;
 }
 
-.home {
+#home {
   display: none;
 }
 
-.fourchan {
+#fourchan {
   display: none;
 }
 
-.post {
+#post {
   display: none;
 }
