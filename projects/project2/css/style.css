@@ -8,13 +8,64 @@
 
 html, body {
     height:100%;
+    width: 100%;
     margin: 0;
 }
 
 .signin {
+  position: relative;
+  margin: 0;
   height: 100%;
-  background-color: blue;
+  width: 100%;
+  background-image: linear-gradient(to bottom right, #A9C2BA, #1E47D7);
+  overflow: hidden;
+  text-align: center;
   /* display: none; */
+}
+
+#user {
+  display: inline-block;
+  position: absolute;
+  height: 20vh;
+  width: 20vh;
+  margin-left: -10vh;
+  margin-top: 15%;
+}
+
+.user-image {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+}
+
+#psw {
+  margin-top: 2.5vh;
+  height: 3vh;
+  width: 100%;
+  border-width:0px;
+  border:none;
+  border-radius: 20px;
+  outline-width: 0;
+}
+
+.buttons {
+  margin-top: 90vh;
+  margin-left: 75%;
+}
+
+.game-button {
+  margin-left: 2vw;
+  border: none;
+  background-color: 0;
+  border-radius: 50%;
+  outline-width: 0;
+  overflow: hidden;
+}
+
+.game-button-img {
+  height: 5vh;
+  width: 5vh;
+  padding-top: 0.5vh;
 }
 
 .home {
