@@ -14,9 +14,17 @@ html, body {
 .signin {
   height: 100%;
   background-color: blue;
+  /* display: none; */
+}
+
+.home {
   display: none;
 }
 
 .fourchan {
-  /* display: none; */
+  display: none;
+}
+
+.post {
+  display: none;
 }
