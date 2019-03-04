@@ -7,12 +7,14 @@
 // Variables
 let $signInPage;
 let $homePage;
-let $fourChanPage;
+let $webPage;
 let $journalPage;
 let $scorePage;
 
 let $restartButton;
 let $offButton;
+let $internetButton;
+let $journalButton;
 
 let n = 0;
 
@@ -27,22 +29,30 @@ function setup() {
 
   $signInPage = $("#signin");
   $homePage = $("#home");
+  $webPage = $("#fourchan");
+  $journalPage = $("#post");
   $scorePage = $("#score");
 
-  $restartButton = $("#restart");
-  $offButton = $("#turnoff");
-
-  $restartButton.on('click',restartGame);
-  $restartButton.on('click',turnOffGame);
+  $restartButton = $(".game-button#restart");
+  $offButton = $(".game-button#turnoff");
+  $internetButton = $(".game-button#internet");
+  $journalButton = $(".game-button#journal");
 
   $('#sign-in-button').on('click',signIn);
+
+  $restartButton.on('click', restartGame);
+  $offButton.on('click', turnOffGame);
+  $internetButton.on('click', openInternet);
+  $journalButton.on('click', openJournal);
+
 }
 
 function restartGame() {
-  // script.restart();
+  console.log("restart");
 }
 
 function turnOffGame() {
+  console.log("turnoff-show score!");
   $scorePage.css('display','block');
 }
 
@@ -51,6 +61,15 @@ function signIn() {
   $homePage.css('display','block');
 }
 
+function openInternet() {
+  $homePage.css('display', 'none');
+  $webPage.css('display', 'block');
+
+}
+
+function openJournal() {
+
+}
 
 // startGame()
 //

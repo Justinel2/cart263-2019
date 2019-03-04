@@ -121,3 +121,9 @@ html, body {
 #post {
   display: none;
 }
+
+#score {
+  display: none;
+  border-color: blue;
+  z-index: 100;
+}
