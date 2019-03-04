@@ -5,6 +5,17 @@
 ******************/
 
 // Variables
+
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
+var content;
+var url;
+var links = ["a", "c", "g", "k", "m", "o", "p", "v", "vg", "vr",
+             "w", "vip", "qa", "cm", "lgbt", "3", "adv", "an"
+             "asp", "biz", "cgl", "ck", "co", "diy", "fa", "fit"
+             "gd", "his", "int", "jp", "lit", "mlp", "mu", "n"
+             "news", "out", "po", "qst", "sci", "sp", "tg", "toy"
+             "trv", "tv", "vp", "wsg", "wsr", "x"];
+
 let $signInPage;
 let $homePage;
 let $webPage;
@@ -17,7 +28,6 @@ let $internetButton;
 let $journalButton;
 let $closeButton;
 
-let n = 0;
 
 // When the document is loaded we call the setup function
 $(document).ready(setup);
@@ -64,9 +74,8 @@ function signIn() {
 }
 
 function openInternet() {
-  $homePage.css('display', 'none');
-  $webPage.css('display', 'block');
 
+  $webPage.css('display', 'block');
 }
 
 function openJournal() {

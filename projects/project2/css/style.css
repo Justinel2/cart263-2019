@@ -116,7 +116,7 @@ html, body {
 }
 
 #fourchan {
-  /* display: none; */
+  display: none;
   position: absolute;
   background-color: white;
   height: 92%;
