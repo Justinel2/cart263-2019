@@ -15,6 +15,7 @@ let $restartButton;
 let $offButton;
 let $internetButton;
 let $journalButton;
+let $closeButton;
 
 let n = 0;
 
@@ -37,13 +38,14 @@ function setup() {
   $offButton = $(".game-button#turnoff");
   $internetButton = $(".game-button#internet");
   $journalButton = $(".game-button#journal");
+  $closeButton = $(".close");
 
   $('#sign-in-button').on('click',signIn);
-
   $restartButton.on('click', restartGame);
   $offButton.on('click', turnOffGame);
   $internetButton.on('click', openInternet);
   $journalButton.on('click', openJournal);
+  $closeButton.on('click', closePage);
 
 }
 
@@ -68,7 +70,11 @@ function openInternet() {
 }
 
 function openJournal() {
+  $journalPage.css('display', 'block');
+}
 
+function closePage() {
+  $(this).parent().parent().css('display', 'none');
 }
 
 // startGame()
