@@ -10,7 +10,7 @@ html, body {
     height:100%;
     width: 100%;
     margin: 0;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .page {
@@ -88,6 +88,7 @@ html, body {
 }
 
 #desktop {
+  z-index: 1;
   width: 100%;
   height: 89vh;
   padding-left: 5vh;
@@ -119,7 +120,50 @@ html, body {
 }
 
 #post {
-  display: none;
+  /* display: none; */
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+  height: 50vh;
+  width: 50vw;
+  margin-top: -45%;
+  margin-left: 35%;
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  overflow: hidden;
+}
+
+.top-bar {
+  position: relative;
+  height: 10%;
+  background-color: black;
+  opacity: 0.7;
+  text-align: right;
+}
+
+.top-bar button {
+  position: relative;
+  margin-top: 1.5%;
+  margin-right: 2%;
+  border-radius: 50%;
+  background-color: red;
+  border-style: none;
+  outline-width: 0;
+
+}
+
+#journal-entry {
+  height: 90%;
+}
+
+#journal-entry:hover {
+  cursor: text;
+}
+
+#journal-entry p {
+  margin-left: 2%;
 }
 
 #score {
