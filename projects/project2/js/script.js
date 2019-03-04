@@ -127,7 +127,7 @@ function generateWebPage() {
 
 function generateMarkov() {
   // console.log("generating markov?");
-  markov = new RiMarkov(4);
+  markov = new RiMarkov(3);
   $('textarea').click(generate);
 }
 
@@ -136,8 +136,16 @@ function generate() {
   markov.loadText(comments);
   // console.log("comments: " + comments);
   if (!markov.ready()) return;
-  lines = markov.generateSentences(10);
+  lines = markov.generateSentences(5);
   dataString = lines.join(' ');
+
+  for (var i = 0; i <= 20000000; i++) {
+    // var r = " > > " + String(i);
+    dataString = dataString.replace(String(i),"");
+  }
+  dataString = dataString.replace(" >","");
+  dataString = dataString.replace(">","");
+  dataString = dataString.replace(" > ","");
   console.log(dataString);
 }
 
