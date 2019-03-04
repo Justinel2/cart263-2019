@@ -91,33 +91,6 @@ function openInternet() {
   }
 }
 
-function generateMarkov() {
-  console.log("generating markov?");
-  markov = new RiMarkov(4);
-
-  RiTa.loadString('../assets/texts/kafka.txt', function (data1) {
-     RiTa.loadString('../assets/texts/wittgenstein.txt', function (data2) {
-       markov.loadText(data1);
-       markov.loadText(data2);
-     });
-   });
-   dataString = "click to regenerate";
-  console.log(dataString);
-  // generate();
-  $('textarea').click(generate);
-}
-
-function generate() {
-  console.log("enters in generate");
-  if (!markov.ready()) return;
-  console.log(dataString);
-  dataString = markov.generateSentences(10);
-  console.log(dataString);
-
-  // $('#para').text(lines.join(' '));
-  // $('.textarea').css('align-items', 'stretch');
-}
-
 function openJournal() {
   $journalPage.css('display', 'block');
 }
@@ -141,7 +114,7 @@ function generateWebPage() {
     console.log(content);
     $('#para').html(content);
     comments = $("blockquote.postMessage").text();
-    console.log(String(comments));
+    // console.log(String(comments));
     $(function(){
       $('a').each(function() {
         $(this).attr('href', ' ');
@@ -150,6 +123,24 @@ function generateWebPage() {
    })
   .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
 }
+
+
+function generateMarkov() {
+  // console.log("generating markov?");
+  markov = new RiMarkov(4);
+  $('textarea').click(generate);
+}
+
+function generate() {
+  // console.log("enters in generate");
+  markov.loadText(comments);
+  // console.log("comments: " + comments);
+  if (!markov.ready()) return;
+  lines = markov.generateSentences(10);
+  dataString = lines.join(' ');
+  console.log(dataString);
+}
+
 
 function generateJournalEntry() {
   (function($) {
