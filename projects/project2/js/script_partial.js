@@ -29,6 +29,8 @@ function setup() {
     content = String(data);
     console.log(content);
     $('#para').html(content);
+    comments = $("blockquote.postMessage").text();
+    console.log(String(comments));
     $(function(){
       $('a').each(function() {
         $(this).attr('href', ' ');
@@ -36,23 +38,6 @@ function setup() {
     });
    })
   .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
-
-  // var content;
-  // var comments;
-  // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-  // const url = "http://www.4channel.org/"; // site that doesn’t send Access-Control-*
-  // fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-  // .then((res) => {
-  //     return res.text();
-  // })
-  // .then((data) => {
-  //   content = String(data);
-  //   console.log(content);
-  //   $('#para').html(content);
-  //   comments = $("blockquote.postMessage").text();
-  //   console.log(String(comments));
-  //  })
-  // .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
 
   };
 

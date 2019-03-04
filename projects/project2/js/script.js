@@ -9,6 +9,7 @@
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 var content;
 var comments;
+var dataString;
 var baseURL = "http://boards.4channel.org/";
 var url;
 var links = ["a", "c", "g", "k", "m", "o", "p", "v", "vg", "vr",
@@ -18,6 +19,9 @@ var links = ["a", "c", "g", "k", "m", "o", "p", "v", "vg", "vr",
              "news", "out", "po", "qst", "sci", "sp", "tg", "toy",
              "trv", "tv", "vp", "wsg", "wsr", "x"];
 var browserOpen = false;
+
+var markov;
+var lines;
 
 let $signInPage;
 let $homePage;
@@ -81,9 +85,37 @@ function openInternet() {
   if (browserOpen === false) {
     generateRandomURL();
     generateWebPage();
+    generateMarkov();
     generateJournalEntry();
     browserOpen = true;
   }
+}
+
+function generateMarkov() {
+  console.log("generating markov?");
+  markov = new RiMarkov(4);
+
+  RiTa.loadString('../assets/texts/kafka.txt', function (data1) {
+     RiTa.loadString('../assets/texts/wittgenstein.txt', function (data2) {
+       markov.loadText(data1);
+       markov.loadText(data2);
+     });
+   });
+   dataString = "click to regenerate";
+  console.log(dataString);
+  // generate();
+  $('textarea').click(generate);
+}
+
+function generate() {
+  console.log("enters in generate");
+  if (!markov.ready()) return;
+  console.log(dataString);
+  dataString = markov.generateSentences(10);
+  console.log(dataString);
+
+  // $('#para').text(lines.join(' '));
+  // $('.textarea').css('align-items', 'stretch');
 }
 
 function openJournal() {
@@ -100,7 +132,6 @@ function generateRandomURL() {
 }
 
 function generateWebPage() {
-  console.log("generate");
   fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
   .then((res) => {
       return res.text();
@@ -109,8 +140,8 @@ function generateWebPage() {
     content = String(data);
     console.log(content);
     $('#para').html(content);
-    // comments = $("blockquote.postMessage").text();
-    // console.log(String(comments));
+    comments = $("blockquote.postMessage").text();
+    console.log(String(comments));
     $(function(){
       $('a').each(function() {
         $(this).attr('href', ' ');
@@ -121,7 +152,7 @@ function generateWebPage() {
 }
 
 function generateJournalEntry() {
-  jQuery.get('../assets/texts/test.txt', function(dataString) {
+  (function($) {
     var i = 0;
     $('textarea').keyup(function (e){
       var prev = "";
@@ -133,5 +164,5 @@ function generateJournalEntry() {
         i++;
       }
     })
-  });
+  })(jQuery);
 }
