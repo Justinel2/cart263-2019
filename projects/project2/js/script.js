@@ -8,7 +8,9 @@
 
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 var content;
-var url = "http://boards.4channel.org/";
+var comments;
+var baseURL = "http://boards.4channel.org/";
+var url;
 var links = ["a", "c", "g", "k", "m", "o", "p", "v", "vg", "vr",
              "w", "vip", "qa", "cm", "lgbt", "3", "adv", "an",
              "asp", "biz", "cgl", "ck", "co", "diy", "fa", "fit",
@@ -77,7 +79,8 @@ function openInternet() {
   $webPage.css('display', 'block');
 
   if (browserOpen === false) {
-    // generateWebPage();
+    generateRandomURL();
+    generateWebPage();
     generateJournalEntry();
     browserOpen = true;
   }
@@ -85,31 +88,37 @@ function openInternet() {
 
 function openJournal() {
   $journalPage.css('display', 'block');
-  // NOT IN OPEN JOURNAL if (browserOpen >= 1)... do it + end the day + put all to 0
 }
 
 function closePage() {
   $(this).parent().parent().css('display', 'none');
 }
-//
-// function generateWebPage() {
-//   console.log("generate");
-//   fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-//   .then((res) => {
-//       return res.text();
-//   })
-//   .then((data) => {
-//     content = String(data);
-//     console.log(content);
-//     $('#para').html(content);
-//     $(function(){
-//       $('a').each(function() {
-//         $(this).attr('href', ' ');
-//       });
-//     });
-//    })
-//   .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
-// }
+
+function generateRandomURL() {
+  var number = Math.floor(Math.random() * 48);
+  url = baseURL + "/" + links[number] + "/";
+}
+
+function generateWebPage() {
+  console.log("generate");
+  fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+  .then((res) => {
+      return res.text();
+  })
+  .then((data) => {
+    content = String(data);
+    console.log(content);
+    $('#para').html(content);
+    // comments = $("blockquote.postMessage").text();
+    // console.log(String(comments));
+    $(function(){
+      $('a').each(function() {
+        $(this).attr('href', ' ');
+      });
+    });
+   })
+  .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+}
 
 function generateJournalEntry() {
   jQuery.get('../assets/texts/test.txt', function(dataString) {
@@ -124,7 +133,5 @@ function generateJournalEntry() {
         i++;
       }
     })
-   // //process text file line by line
-   // $('#journal-entry').html(dataString.replace('n',''));
   });
 }
