@@ -113,11 +113,14 @@ function closePage() {
 
 function generateJournalEntry() {
   jQuery.get('../assets/texts/test.txt', function(dataString) {
-    alert(dataString);
     var i = 0;
-    $('textarea').keydown(function (e){
+    $('textarea').keyup(function (e){
+      var prev = "";
       if (i < dataString.length) {
-        console.log(dataString[i]);
+        for (var j = 0; j < i; j++) {
+          prev += dataString[j];
+        }
+        $(this).val(prev + dataString[i]);
         i++;
       }
     })

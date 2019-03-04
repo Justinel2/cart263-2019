@@ -184,6 +184,13 @@ html, body {
   margin-left: 2%;
 }
 
+textarea {
+  border-style: none;
+  outline-width: 0;
+  margin-left: 2%;
+  /* color: transparent; */
+}
+
 #score {
   display: none;
   border-color: blue;
