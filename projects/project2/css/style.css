@@ -10,7 +10,7 @@ html, body {
     height:100%;
     width: 100%;
     margin: 0;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .page {
@@ -116,7 +116,25 @@ html, body {
 }
 
 #fourchan {
-  display: none;
+  /* display: none; */
+  position: absolute;
+  background-color: white;
+  height: 92%;
+  width: 70%;
+  margin-top: -65%;
+  margin-left: 5%;
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  overflow: hidden;
+}
+
+#para {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 #post {
@@ -137,7 +155,7 @@ html, body {
 
 .top-bar {
   position: relative;
-  height: 10%;
+  height: 25px;
   background-color: black;
   opacity: 0.7;
   text-align: right;
@@ -145,7 +163,7 @@ html, body {
 
 .top-bar button {
   position: relative;
-  margin-top: 1.5%;
+  margin-top: 5px;
   margin-right: 2%;
   border-radius: 50%;
   background-color: red;
