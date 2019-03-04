@@ -57,7 +57,6 @@ function setup() {
   $internetButton.on('click', openInternet);
   $journalButton.on('click', openJournal);
   $closeButton.on('click', closePage);
-
 }
 
 function restartGame() {
@@ -78,7 +77,8 @@ function openInternet() {
   $webPage.css('display', 'block');
 
   if (browserOpen === false) {
-    generateWebPage();
+    // generateWebPage();
+    generateJournalEntry();
     browserOpen = true;
   }
 }
@@ -91,30 +91,37 @@ function openJournal() {
 function closePage() {
   $(this).parent().parent().css('display', 'none');
 }
-
-function generateWebPage() {
-  console.log("generate");
-  fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-  .then((res) => {
-      return res.text();
-  })
-  .then((data) => {
-    content = String(data);
-    console.log(content);
-    $('#para').html(content);
-    $(function(){
-      $('a').each(function() {
-        $(this).attr('href', ' ');
-      });
-    });
-   })
-  .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
-}
-
-// startGame()
 //
-// A function that hides the introduction page when the start button is clicked.
-// By that, the gameplay is visible (z-index)
-// function startGame(){
-//   $('.intro').css('display', 'none');
+// function generateWebPage() {
+//   console.log("generate");
+//   fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+//   .then((res) => {
+//       return res.text();
+//   })
+//   .then((data) => {
+//     content = String(data);
+//     console.log(content);
+//     $('#para').html(content);
+//     $(function(){
+//       $('a').each(function() {
+//         $(this).attr('href', ' ');
+//       });
+//     });
+//    })
+//   .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
 // }
+
+function generateJournalEntry() {
+  jQuery.get('../assets/texts/test.txt', function(dataString) {
+    alert(dataString);
+    var i = 0;
+    $('textarea').keydown(function (e){
+      if (i < dataString.length) {
+        console.log(dataString[i]);
+        i++;
+      }
+    })
+   // //process text file line by line
+   // $('#journal-entry').html(dataString.replace('n',''));
+  });
+}
