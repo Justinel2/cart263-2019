@@ -19,6 +19,7 @@ var links = ["a", "c", "g", "k", "m", "o", "p", "v", "vg", "vr",
              "news", "out", "po", "qst", "sci", "sp", "tg", "toy",
              "trv", "tv", "vp", "wsg", "wsr", "x"];
 var browserOpen = false;
+var generation = false;
 
 var markov;
 var lines;
@@ -174,6 +175,10 @@ function generateJournalEntry() {
         $(this).val(prev + dataString[i]);
         i++;
       }
+      if (i >= dataString.length) {
+        generation = true;
+      }
+      console.log(generation);
     })
   })(jQuery);
 }
