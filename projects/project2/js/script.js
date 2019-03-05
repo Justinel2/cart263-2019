@@ -20,6 +20,7 @@ var links = ["a", "c", "g", "k", "m", "o", "p", "v", "vg", "vr",
              "trv", "tv", "vp", "wsg", "wsr", "x"];
 var browserOpen = false;
 var generation = false;
+var journalEntryWritten = false;
 
 var markov;
 var lines;
@@ -106,7 +107,12 @@ function closeWebPage() {
 }
 
 function closeJournal() {
-  $journalPage.css('display', 'none');
+  if (journalEntryWritten === false) {
+    $journalPage.css('display', 'none');
+  }
+  if (journalEntryWritten === true) {
+    console.log("do stuff hehe if works!");
+  }
 }
 
 function generateRandomURL() {
@@ -124,7 +130,6 @@ function generateWebPage() {
     console.log(content);
     $('#para').html(content);
     comments = $("blockquote.postMessage").text();
-    // console.log(String(comments));
     textToMarkov += comments;
     console.log(textToMarkov);
     $(function(){
@@ -140,26 +145,32 @@ function generateWebPage() {
 function generateMarkov() {
   // console.log("generating markov?");
   markov = new RiMarkov(3);
-  $('textarea').click(generate);
+  console.log(generation);
+  if (generation === false) {
+    $journalPage.click(generate);
+  }
+  if (generation === true) {
+    return;
+  }
 }
 
 function generate() {
-  // console.log("enters in generate");
-  textToMarkov =
-  markov.loadText(textToMarkov);
-  // console.log("comments: " + comments);
-  if (!markov.ready()) return;
-  lines = markov.generateSentences(5);
-  dataString = lines.join(' ');
+  if (generation === false) {
+    markov.loadText(textToMarkov);
+    if (!markov.ready()) return;
+    lines = markov.generateSentences(5);
+    dataString = lines.join(' ');
 
-  for (var i = 0; i <= 20000000; i++) {
-    // var r = " > > " + String(i);
-    dataString = dataString.replace(String(i),"");
+    for (var i = 0; i <= 20000000; i++) {
+      dataString = dataString.replace(String(i),"");
+    }
+    dataString = dataString.replace(" >","");
+    dataString = dataString.replace(">","");
+    dataString = dataString.replace(" > ","");
+    console.log(dataString);
+    generation = true;
+    console.log(generation);
   }
-  dataString = dataString.replace(" >","");
-  dataString = dataString.replace(">","");
-  dataString = dataString.replace(" > ","");
-  console.log(dataString);
 }
 
 
@@ -176,9 +187,8 @@ function generateJournalEntry() {
         i++;
       }
       if (i >= dataString.length) {
-        generation = true;
+        journalEntryWritten = true;
       }
-      console.log(generation);
     })
   })(jQuery);
 }
