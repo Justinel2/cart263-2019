@@ -94,7 +94,8 @@ function restartGame() {
 }
 
 function turnOffGame() {
-  console.log("turnoff-show score!");
+  restartGame();
+  archive = [];
   $scorePage.css('display','block');
 }
 
