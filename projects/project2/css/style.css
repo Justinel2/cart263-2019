@@ -191,6 +191,16 @@ textarea {
   /* color: transparent; */
 }
 
+#restart-quit {
+  display: none;
+  z-index: 1000;
+  position: absolute;
+  background-color: grey;
+  text-align: center;
+  width: 100%;
+  margin-top: -40%;
+}
+
 #score {
   display: none;
   border-color: blue;

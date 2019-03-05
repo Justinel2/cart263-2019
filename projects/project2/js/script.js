@@ -22,6 +22,9 @@ var browserOpen = false;
 var generation = false;
 var journalEntryWritten = false;
 
+var day = 0;
+var archive = new Array(0);
+
 var markov;
 var lines;
 var textToMarkov = "";
@@ -30,7 +33,10 @@ let $signInPage;
 let $homePage;
 let $webPage;
 let $journalPage;
+let $instructionPage;
 let $scorePage;
+
+let $textarea;
 
 let $restartButton;
 let $offButton;
@@ -53,7 +59,10 @@ function setup() {
   $homePage = $("#home");
   $webPage = $("#fourchan");
   $journalPage = $("#post");
+  $instructionPage = $("#restart-quit");
   $scorePage = $("#score");
+
+  $textarea = $('textarea');
 
   $restartButton = $(".game-button#restart");
   $offButton = $(".game-button#turnoff");
@@ -73,7 +82,15 @@ function setup() {
 }
 
 function restartGame() {
-  console.log("restart");
+  var browserOpen = false;
+  var generation = false;
+  var journalEntryWritten = false;
+  closeWebPage();
+  closeJournal();
+  archive[day] = $textarea.val();
+  $textarea.val("");
+  day++;
+  $signInPage.css('display','block');
 }
 
 function turnOffGame() {
@@ -111,7 +128,7 @@ function closeJournal() {
     $journalPage.css('display', 'none');
   }
   if (journalEntryWritten === true) {
-    console.log("do stuff hehe if works!");
+    $instructionPage.css('display', 'block');
   }
 }
 
@@ -145,13 +162,7 @@ function generateWebPage() {
 function generateMarkov() {
   // console.log("generating markov?");
   markov = new RiMarkov(3);
-  console.log(generation);
-  if (generation === false) {
-    $journalPage.click(generate);
-  }
-  if (generation === true) {
-    return;
-  }
+  $journalPage.click(generate);
 }
 
 function generate() {
@@ -177,7 +188,7 @@ function generate() {
 function generateJournalEntry() {
   (function($) {
     var i = 0;
-    $('textarea').keyup(function (e){
+    $textarea.keyup(function (e){
       var prev = "";
       if (i < dataString.length) {
         for (var j = 0; j < i; j++) {
@@ -191,8 +202,4 @@ function generateJournalEntry() {
       }
     })
   })(jQuery);
-}
-
-function handlePostEntry(){
-
 }
