@@ -22,6 +22,7 @@ var browserOpen = false;
 
 var markov;
 var lines;
+var textToMarkov = "";
 
 let $signInPage;
 let $homePage;
@@ -33,7 +34,8 @@ let $restartButton;
 let $offButton;
 let $internetButton;
 let $journalButton;
-let $closeButton;
+let $closeWebPageButton;
+let $closeJournalButton;
 
 
 // When the document is loaded we call the setup function
@@ -55,14 +57,17 @@ function setup() {
   $offButton = $(".game-button#turnoff");
   $internetButton = $(".game-button#internet");
   $journalButton = $(".game-button#journal");
-  $closeButton = $(".close");
+  $closeWebPageButton = $("#close-web");
+  $closeJournalButton = $("#close-journal");
 
   $('#sign-in-button').on('click',signIn);
   $restartButton.on('click', restartGame);
   $offButton.on('click', turnOffGame);
   $internetButton.on('click', openInternet);
   $journalButton.on('click', openJournal);
-  $closeButton.on('click', closePage);
+  $closeWebPageButton.on('click', closeWebPage);
+  $closeJournalButton.on('click', closeJournal);
+
 }
 
 function restartGame() {
@@ -95,8 +100,12 @@ function openJournal() {
   $journalPage.css('display', 'block');
 }
 
-function closePage() {
-  $(this).parent().parent().css('display', 'none');
+function closeWebPage() {
+  $webPage.css('display', 'none');
+}
+
+function closeJournal() {
+  $journalPage.css('display', 'none');
 }
 
 function generateRandomURL() {
@@ -115,6 +124,8 @@ function generateWebPage() {
     $('#para').html(content);
     comments = $("blockquote.postMessage").text();
     // console.log(String(comments));
+    textToMarkov += comments;
+    console.log(textToMarkov);
     $(function(){
       $('a').each(function() {
         $(this).attr('href', ' ');
@@ -133,7 +144,8 @@ function generateMarkov() {
 
 function generate() {
   // console.log("enters in generate");
-  markov.loadText(comments);
+  textToMarkov =
+  markov.loadText(textToMarkov);
   // console.log("comments: " + comments);
   if (!markov.ready()) return;
   lines = markov.generateSentences(5);
@@ -164,4 +176,8 @@ function generateJournalEntry() {
       }
     })
   })(jQuery);
+}
+
+function handlePostEntry(){
+
 }
