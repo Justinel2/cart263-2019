@@ -10,7 +10,7 @@ const proxyurl = "https://cors-anywhere.herokuapp.com/";
 var content;
 var comments;
 var dataString;
-var baseURL = "http://boards.4channel.org/";
+var baseURL = "http://boards.4channel.org";
 var url;
 var links = ["a", "c", "g", "k", "m", "o", "p", "v", "vg", "vr",
              "w", "vip", "qa", "cm", "lgbt", "3", "adv", "an",
@@ -35,6 +35,7 @@ let $webPage;
 let $journalPage;
 let $instructionPage;
 let $scorePage;
+let $scorePageEntry;
 
 let $textarea;
 
@@ -61,6 +62,7 @@ function setup() {
   $journalPage = $("#post");
   $instructionPage = $("#restart-quit");
   $scorePage = $("#score");
+  $scorePageEntry = $('#score p');
 
   $textarea = $('textarea');
 
@@ -82,26 +84,33 @@ function setup() {
 }
 
 function restartGame() {
-  var browserOpen = false;
-  var generation = false;
-  var journalEntryWritten = false;
+  browserOpen = false;
+  generation = false;
+  journalEntryWritten = false;
+  $instructionPage.css('display','none');
   closeWebPage();
   closeJournal();
-  archive[day] = $textarea.val();
+  generateWebPage();
+  console.log(String(url));
+  archive.push($textarea.val());
   $textarea.val("");
   day++;
   $signInPage.css('display','block');
 }
 
 function turnOffGame() {
-  restartGame();
-  archive = [];
+  // restartGame();
+  // archive = [];
   $scorePage.css('display','block');
+  for (var i = 0; i < archive.length; i++) {
+    $scorePageEntry.last().after(archive[i]);
+  }
 }
 
 function signIn() {
   $signInPage.css('display','none');
   $homePage.css('display','block');
+  $instructionPage.css('display','none');
 }
 
 function openInternet() {
