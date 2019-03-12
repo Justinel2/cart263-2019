@@ -39,6 +39,7 @@ let $scorePage;
 let $scorePageEntry;
 
 let $textarea;
+let $webarea;
 
 let $restartButton;
 let $offButton;
@@ -66,6 +67,7 @@ function setup() {
   $scorePageEntry = $('#score p');
 
   $textarea = $('textarea');
+  $webarea =   $('#para');
 
   $restartButton = $(".game-button#restart");
   $offButton = $(".game-button#turnoff");
@@ -121,7 +123,7 @@ function openInternet() {
   $webPage.css('display', 'block');
 
   if (browserOpen === false) {
-    generateRandomURL();
+    // generateRandomURL();
     generateWebPage();
     generateMarkov();
     generateJournalEntry();
@@ -146,30 +148,52 @@ function closeJournal() {
   }
 }
 
-function generateRandomURL() {
-  var number = Math.floor(Math.random() * 48);
-  url = baseURL + "/" + links[number] + "/";
-}
+// function generateRandomURL() {
+//   var number = Math.floor(Math.random() * 48);
+//   url = baseURL + "/" + links[number] + "/";
+// }
 
 function generateWebPage() {
-  fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
-  .then((res) => {
-      return res.text();
-  })
-  .then((data) => {
-    content = String(data);
-    console.log(content);
-    $('#para').html(content);
-    comments = $("blockquote.postMessage").text();
-    textToMarkov += comments;
-    console.log(textToMarkov);
-    $(function(){
-      $('a').each(function() {
-        $(this).attr('href', ' ');
-      });
-    });
-   })
-  .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
+
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+      console.log(this.readyState);
+      if (this.readyState === 4 && this.status === 200) {
+        content = this.responseText;
+        console.log(content);
+        $webarea.html(content);
+        comments = $("blockquote.postMessage").text();
+        textToMarkov += comments;
+        console.log(textToMarkov);
+        $(function(){
+          $('a').each(function() {
+            $(this).attr('href', ' ');
+          });
+        });
+      }
+    }
+    xhr.open("GET", "https://cors-anywhere.herokuapp.com/http://boards.4channel.org/" + links[(Math.floor(Math.random() * 48))] + "/");
+    xhr.send();
+
+  // //
+  // fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+  // .then((res) => {
+  //     return res.text();
+  // })
+  // .then((data) => {
+  //   content = String(data);
+  //   console.log(content);
+  //   $('#para').html(content);
+  //   comments = $("blockquote.postMessage").text();
+  //   textToMarkov += comments;
+  //   console.log(textToMarkov);
+  //   $(function(){
+  //     $('a').each(function() {
+  //       $(this).attr('href', ' ');
+  //     });
+  //   });
+  //  })
+  // .catch(() => console.log("Can’t access " + url + " response. Blocked by browser?"))
 }
 
 
