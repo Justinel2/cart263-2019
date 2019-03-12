@@ -22,8 +22,9 @@ var browserOpen = false;
 var generation = false;
 var journalEntryWritten = false;
 
-var day = 0;
+var day;
 var archive = new Array(0);
+var currentArchive;
 
 var markov;
 var lines;
@@ -99,12 +100,14 @@ function restartGame() {
 }
 
 function turnOffGame() {
-  // restartGame();
-  // archive = [];
+  restartGame();
+  // archive += [];
   $signInPage.css('display','none');
   $scorePage.css('display','block');
-  for (var i = 0; i < archive.length; i++) {
-    $scorePageEntry.last().after(archive[i]);
+  console.log(archive);
+  for (var k = archive.length-1; k >= 0; k--) {
+    day = k+1;
+    $scorePageEntry.last().after('<p span id= "day"> Day '+ day + '<p>' + archive[k] + '</p>');
   }
 }
 
