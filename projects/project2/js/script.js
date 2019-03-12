@@ -101,6 +101,7 @@ function restartGame() {
 function turnOffGame() {
   // restartGame();
   // archive = [];
+  $signInPage.css('display','none');
   $scorePage.css('display','block');
   for (var i = 0; i < archive.length; i++) {
     $scorePageEntry.last().after(archive[i]);
