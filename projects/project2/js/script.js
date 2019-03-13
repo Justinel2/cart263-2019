@@ -1,7 +1,7 @@
 "use strict";
 
 /*****************
-
+SURF THE WEB AS
 ******************/
 
 // Variables
@@ -245,7 +245,7 @@ function generateWebPage() {
 //
 // A function that creates a new RiMarkov model and calls its generation every time the journal tab is clicked
 function generateMarkov() {
-  markov = new RiMarkov(2);
+  markov = new RiMarkov(3);
   $journalPage.click(generate);
 }
 
