@@ -39,6 +39,8 @@ let hihat;
 let pattern = ['x','*','xo*',' ','x','x','xo','*'];
 // Which beat of the pattern we're at right now
 let patternIndex = 0;
+// Disable the actions at mousePressed
+let disableMousePressed = false;
 
 // setup()
 //
@@ -85,10 +87,15 @@ function setup() {
 // Using this to start the note and drum sequences to get around
 // user interaction (and to give the files time to load)
 function mousePressed() {
-  // Start an interval for the notes
-  setInterval(playNote,NOTE_TEMPO);
-  // Start an interval for the drums
-  setInterval(playDrum,DRUM_TEMPO);
+  // If the mouse pressed actions are not disabled
+  if (!disableMousePressed) {
+    // Start an interval for the notes
+    setInterval(playNote,NOTE_TEMPO);
+    // Start an interval for the drums
+    setInterval(playDrum,DRUM_TEMPO);
+    // Disable the mousePressed actions for the futur
+    disableMousePressed = true;
+  }
 }
 
 // playNote
