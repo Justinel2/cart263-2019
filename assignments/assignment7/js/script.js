@@ -24,7 +24,7 @@ const RELEASE = 0.1;
 // We can get the frequencies of these notes from THE INTERNET, e.g.
 // http://pages.mtu.edu/~suits/notefreqs.html
 let frequencies = [
-  220,246.94,277.18,293.66,329.63,369.99,415.30,0.0
+  210.00,223.47,238.51,246.83,264.81,285.00,307.65,0.0
 ];
 // The synth
 let synth;
@@ -45,6 +45,8 @@ let disableMousePressed = false;
 let pingPongDelay;
 let quadrafuzz;
 let flanger;
+let lowPassFilter;
+let reverb;
 
 // setup()
 //
@@ -76,6 +78,11 @@ function setup() {
     mix: 1.0
   });
 
+  lowPassFilter = new Pizzicato.Effects.LowPassFilter({
+    frequency: 200,
+    peak: 10.30
+  });
+
   flanger = new Pizzicato.Effects.Flanger({
     time: 0.1,
     speed: 1.0,
@@ -84,9 +91,17 @@ function setup() {
     mix: 1
   });
 
-  synth.addEffect(pingPongDelay);
-  // synth.addEffect(quadrafuzz);
+  reverb = new Pizzicato.Effects.Reverb({
+    time: 2.5,
+    decay: 2.5,
+    mix: 0.7
+  });
+
+  synth.addEffect(quadrafuzz);
+  synth.addEffect(lowPassFilter);
   synth.addEffect(flanger);
+  synth.addEffect(reverb);
+  synth.addEffect(pingPongDelay);
 
   // Load the three drum sounds as wav files
   kick = new Pizzicato.Sound({
@@ -95,7 +110,7 @@ function setup() {
       path: 'assets/sounds/kick.wav'
     }
   });
-  // kick.addEffect(pingPongDelay);
+  kick.addEffect(reverb);
 
   snare = new Pizzicato.Sound({
     source: 'file',
@@ -103,7 +118,7 @@ function setup() {
       path: 'assets/sounds/snare.wav'
     }
   });
-  snare.addEffect(pingPongDelay);
+  snare.addEffect(reverb);
 
   hihat = new Pizzicato.Sound({
     source: 'file',
@@ -111,7 +126,7 @@ function setup() {
       path: 'assets/sounds/hihat.wav'
     }
   });
-  hihat.addEffect(pingPongDelay);
+  hihat.addEffect(reverb);
 }
 
 // mousePressed
@@ -119,7 +134,7 @@ function setup() {
 // Using this to start the note and drum sequences to get around
 // user interaction (and to give the files time to load)
 function mousePressed() {
-  let t = random(0.0,5.0)
+  let t = random(0.1,4.0)
   // If the mouse pressed actions are not disabled
   if (!disableMousePressed) {
     // Create a function loop() that will update the random multiples of NOTE_TEMPO
