@@ -24,7 +24,7 @@ const RELEASE = 0.1;
 // We can get the frequencies of these notes from THE INTERNET, e.g.
 // http://pages.mtu.edu/~suits/notefreqs.html
 let frequencies = [
-  220,246.94,277.18,293.66,329.63,369.99,415.30
+  220,246.94,277.18,293.66,329.63,369.99,415.30,0.0
 ];
 // The synth
 let synth;
@@ -106,8 +106,14 @@ function playNote() {
   let frequency = frequencies[Math.floor(Math.random() * frequencies.length)];
   // Set the synth's frequency
   synth.frequency = frequency;
-  // If it's note already play, play the synth
-  synth.play();
+  // If the frequency is 'stop', stop the sound
+  if (frequency === 0.0) {
+    synth.stop();
+  }
+  else {
+    // If it's note already play, play the synth
+    synth.play();
+  }
 }
 
 // playDrum()
