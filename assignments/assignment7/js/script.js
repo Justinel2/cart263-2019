@@ -44,6 +44,7 @@ let disableMousePressed = false;
 
 let pingPongDelay;
 let quadrafuzz;
+let flanger;
 
 // setup()
 //
@@ -65,7 +66,7 @@ function setup() {
   pingPongDelay = new Pizzicato.Effects.PingPongDelay({
     feedback: 0.5,
     time: 0.4,
-    mix: 0.5
+    mix: 0.2
   });
 
   quadrafuzz = new Pizzicato.Effects.Quadrafuzz({
@@ -75,8 +76,17 @@ function setup() {
     mix: 1.0
   });
 
+  flanger = new Pizzicato.Effects.Flanger({
+    time: 0.1,
+    speed: 1.0,
+    depth: 1.0,
+    feedback: 0.29,
+    mix: 1
+  });
+
   synth.addEffect(pingPongDelay);
-  synth.addEffect(quadrafuzz);
+  // synth.addEffect(quadrafuzz);
+  synth.addEffect(flanger);
 
   // Load the three drum sounds as wav files
   kick = new Pizzicato.Sound({
