@@ -43,6 +43,7 @@ let patternIndex = 0;
 let disableMousePressed = false;
 
 let pingPongDelay;
+let quadrafuzz;
 
 // setup()
 //
@@ -66,6 +67,16 @@ function setup() {
     time: 0.4,
     mix: 0.5
   });
+
+  quadrafuzz = new Pizzicato.Effects.Quadrafuzz({
+    lowGain: 0.1,
+    midLowGain: 0.8,
+    midHighGain: 0.1,
+    mix: 1.0
+  });
+
+  synth.addEffect(pingPongDelay);
+  synth.addEffect(quadrafuzz);
 
   // Load the three drum sounds as wav files
   kick = new Pizzicato.Sound({
