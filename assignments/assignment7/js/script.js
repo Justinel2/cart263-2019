@@ -87,10 +87,21 @@ function setup() {
 // Using this to start the note and drum sequences to get around
 // user interaction (and to give the files time to load)
 function mousePressed() {
+  let t = random(0.0,5.0)
   // If the mouse pressed actions are not disabled
   if (!disableMousePressed) {
-    // Start an interval for the notes
-    setInterval(playNote,NOTE_TEMPO);
+    // Create a function loop() that will update the random multiples of NOTE_TEMPO
+    (function loop() {
+      // Get a random value between 0.1 and 3.0
+      t = random(0.1,3.0);
+      // Start a timeout for the notes with the multiple times the NOTE_TEMPO as a duration
+      setTimeout(function(){
+        // Call the function playNote()
+        playNote();
+        // Call the loop to generate a new random multiple
+        loop();
+      }, t*NOTE_TEMPO);
+    }());
     // Start an interval for the drums
     setInterval(playDrum,DRUM_TEMPO);
     // Disable the mousePressed actions for the futur
