@@ -42,6 +42,8 @@ let patternIndex = 0;
 // Disable the actions at mousePressed
 let disableMousePressed = false;
 
+let pingPongDelay;
+
 // setup()
 //
 // Creat canvas, set up the synth and sound files.
@@ -59,6 +61,12 @@ function setup() {
     }
   });
 
+  pingPongDelay = new Pizzicato.Effects.PingPongDelay({
+    feedback: 0.5,
+    time: 0.4,
+    mix: 0.5
+  });
+
   // Load the three drum sounds as wav files
   kick = new Pizzicato.Sound({
     source: 'file',
@@ -66,6 +74,7 @@ function setup() {
       path: 'assets/sounds/kick.wav'
     }
   });
+  // kick.addEffect(pingPongDelay);
 
   snare = new Pizzicato.Sound({
     source: 'file',
@@ -73,6 +82,7 @@ function setup() {
       path: 'assets/sounds/snare.wav'
     }
   });
+  snare.addEffect(pingPongDelay);
 
   hihat = new Pizzicato.Sound({
     source: 'file',
@@ -80,6 +90,7 @@ function setup() {
       path: 'assets/sounds/hihat.wav'
     }
   });
+  hihat.addEffect(pingPongDelay);
 }
 
 // mousePressed
