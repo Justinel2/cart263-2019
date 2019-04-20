@@ -26,8 +26,54 @@
   </head>
 
   <body>
-    <a href="submit">submit</a>
-    <a href="browse">browse</a>
+    <!-- Main Page -->
+    <div class="page">
+      <a href="#submit">submit</a>
+      <a href="#connection">browse</a>
+    </div>
+    <!-- Submit Flag Page -->
+    <div class="page" id="submit">
+      <form action="/action_page.php">
+        Person's first name:<br>
+        <input type="text" name="firstname">
+        <br>
+        Person's last name:<br>
+        <input type="text" name="lastname">
+        <br>
+        City:<br>
+        <input type="text" name="location">
+        <br>
+        Person's social media links:<br>
+        <input type="text" name="social">
+        <br>
+        Person's description:<br>
+        <input type="text" name="description">
+        <br>
+        Flags:<br>
+        <input type="text" name="flags">
+        <br>
+        Met on which platform/location (if it is the case):<br>
+        <input type="text" name="platform">
+
+        <br><br>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <!-- Connection Page -->
+    <div class="page" id="connection">
+      <div class="sign-in">
+        <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="uname" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <button type="submit">Login</button>
+      </div>
+      <div class="sign-up">
+
+      </div>
+    </div>
   </body>
 
 </html>
