@@ -6,225 +6,66 @@
 
 /* Just some general syling of the page for aesthetics */
 
-html, body {
-    height:100%;
-    width: 100%;
-    margin: 0;
-    overflow: hidden;
-}
-
-.page {
-  margin: 0;
-  height: 100%;
-  width: 100%;
-}
-
-#signin {
-  display: block;
-  position: relative;
-  background-image: linear-gradient(to bottom right, #A9C2BA, #1E47D7);
-  overflow: hidden;
-  text-align: center;
-}
-
-#user {
-  display: inline-block;
-  position: absolute;
-  height: 20vh;
-  width: 20vh;
-  margin-left: -10vh;
-  margin-top: 15%;
-}
-
-.user-image {
-  height: 100%;
-  width: 100%;
-  border-radius: 50%;
-}
-
-#psw {
-  margin-top: 2.5vh;
-  height: 3vh;
-  width: 100%;
-  border-width:0px;
-  border:none;
-  border-radius: 20px;
-  outline-width: 0;
-}
-
-#sign-in-button {
-  margin-top: 1vh;
-  border: none;
-  background-color: 0;
-  border-radius: 20px;
-  outline-width: 0;
-}
-
-.buttons {
-  margin-top: 90vh;
-  margin-left: 75%;
-}
-
-.game-button {
-  margin-left: 2vw;
-  border: none;
-  background-color: 0;
-  border-radius: 50%;
-  outline-width: 0;
+html,
+body {
+  height: 400%;
   overflow: hidden;
 }
 
-.game-button-img {
-  height: 5vh;
-  width: 5vh;
-  padding-top: 0.5vh;
+body {
+  display: flex;
+  justify-content: center;
+  color: #212529;
+  /* background-color: black; */
+  background-image: linear-gradient(white, grey);
+  font-family: 'Montserrat', sans-serif;
+  /* box-shadow: inset 0 0 2rem rgba(0, 0, 0, .5); */
 }
 
-#home {
-  display: none;
-  background-image:url("../assets/images/snowboard.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
+.cover-container {
+  max-width: 42em;
 }
 
-#desktop {
-  z-index: 1;
-  width: 100%;
-  height: 89vh;
-  padding-left: 5vh;
-  padding-top: 5vh;
+.masthead {
+  margin-bottom: 2rem;
 }
 
-#desktop img {
-  height: 10vh;
-  width: 10vh;
-  border-radius: 50%;
-  opacity: 0.7;
+.masthead-brand {
+  margin-bottom: 0;
 }
 
-#taskbar {
-  width: 100%;
-  height: 6%;
-  background-color: black;
-  opacity: 0.7;
-  padding-top: 0.5vh;
-}
-
-.taskbar-icons {
-  padding-top: 0.5vh;
-  height: 25px;
-}
-
-#fourchan {
-  display: none;
-  position: absolute;
-  background-color: white;
-  height: 92%;
-  width: 70%;
-  margin-top: -99vh;
-  margin-left: 5%;
-  border-radius: 25px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: grey;
-  overflow: hidden;
-}
-
-#para {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-}
-
-#post {
-  display: none;
-  z-index: 100;
-  position: absolute;
-  background-color: white;
-  height: 50vh;
-  width: 50vw;
-  margin-top: -45%;
-  margin-left: 35%;
-  border-radius: 25px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: grey;
-  overflow: hidden;
-}
-
-.top-bar {
-  position: relative;
-  height: 25px;
-  background-color: black;
-  opacity: 0.7;
-  text-align: right;
-}
-
-.top-bar button {
-  position: relative;
-  margin-top: 5px;
-  margin-right: 2%;
-  border-radius: 50%;
-  background-color: red;
-  border-style: none;
-  outline-width: 0;
-
-}
-
-#journal-entry {
-  height: 90%;
-}
-
-#journal-entry:hover {
-  cursor: text;
-}
-
-#journal-entry p {
-  font-family: sans-serif;
-  margin-left: 2%;
-}
-
-textarea {
-  width: 80%;
-  border-style: none;
-  border-color: transparent;
-  outline: none;
-  outline-width: 0;
-  margin-left: 2%;
-  overflow: auto;
-  /* color: transparent; */
-}
-
-#restart-quit {
-  display: none;
-  z-index: 1000;
-  position: absolute;
-  background-color: grey;
-  text-align: center;
-  width: 100%;
-  margin-top: -40%;
-}
-
-#score {
-  display: none;
-  position: absolute;
-  background-color: #A9C2BA;
-  height: 100%;
-  width: 95vw;
-  margin-top: -101vh;
-  margin-left: -1vw;
-  z-index: 1;
-  color: blue;
-  padding-left: 50px;
-  padding-right: 50px;
-  font-family: 'Merriweather', serif;
-  line-height: 1.6;
-  font-size: 18px;
-  font-weight: 300;
-  overflow-y: scroll; 
-}
-
-#day {
+.nav-masthead .nav-link {
+  padding: .25rem 0;
   font-weight: 700;
+  color: #212529;
+  background-color: transparent;
+  border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover,
+.nav-masthead .nav-link:focus {
+  border-bottom-color: rgba(0, 0, 0, .25);
+}
+
+.nav-masthead .nav-link+.nav-link {
+  margin-left: 1rem;
+}
+
+@media (min-width: 48em) {
+  .masthead-brand {
+    float: left;
+  }
+
+  .nav-masthead {
+    float: right;
+  }
+}
+
+.cover {
+  padding: 0 1.5rem;
+}
+
+#background {
+  position: fixed;
+  z-index: -1;
 }

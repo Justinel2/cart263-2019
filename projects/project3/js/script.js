@@ -1,304 +1,175 @@
-"use strict";
 
-/*****************
-SURF THE WEB AS
-******************/
+App({ el: 'background' });
 
-// Variables
-// local variables
-const proxyurl = "https://cors-anywhere.herokuapp.com/";
-var content;
-var comments;
-var dataString;
-var baseURL = "http://boards.4channel.org";
-var url;
-var links = ["a", "c", "g", "k", "m", "o", "p", "v", "vg", "vr",
-             "w", "vip", "qa", "cm", "lgbt", "3", "adv", "an",
-             "asp", "biz", "cgl", "ck", "co", "diy", "fa", "fit",
-             "gd", "his", "int", "jp", "lit", "mlp", "mu", "n",
-             "news", "out", "po", "qst", "sci", "sp", "tg", "toy",
-             "trv", "tv", "vp", "wsg", "wsr", "x"];
-
-// Variables expressing state
-var browserOpen = false;
-var generation = false;
-var journalEntryWritten = false;
-
-// Variables for the archive
-var day;
-var archive = new Array(0);
-var currentArchive;
-
-// Variables for the markov generation
-var markov;
-var lines;
-var textToMarkov = "";
-
-// Variables for the different html divs -> page
-let $signInPage;
-let $homePage;
-let $webPage;
-let $journalPage;
-let $instructionPage;
-let $scorePage;
-let $scorePageEntry;
-
-// Variables for the different area of data
-let $textarea;
-let $webarea;
-
-// Variables for the different buttons
-let $restartButton;
-let $offButton;
-let $internetButton;
-let $journalButton;
-let $closeWebPageButton;
-let $closeJournalButton;
+function App(conf) {
+  conf = {
+    fov: 75,
+    cameraZ: 75,
+    xyCoef: 25,
+    zCoef: 3,
+    lightIntensity: 0.5,
+    ambientColor: 0x000000,
+    light1Color: 0x979797,
+    light2Color: 0x979797,
+    light3Color: 0x979797,
+    light4Color: 0x979797,
+    ...conf };
 
 
-// When the document is loaded we call the setup function
-$(document).ready(setup);
+  let renderer, scene, camera, cameraCtrl;
+  let width, height, cx, cy, wWidth, wHeight;
+  const TMath = THREE.Math;
 
+  let plane;
+  const simplex = new SimplexNoise();
 
-// setup()
-//
-// Function initiating the program
-function setup() {
+  const mouse = new THREE.Vector2();
+  const mousePlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
+  const mousePosition = new THREE.Vector3();
+  const raycaster = new THREE.Raycaster();
 
-  // Attribute the page variables to their according divs
-  $signInPage = $("#signin");
-  $homePage = $("#home");
-  $webPage = $("#fourchan");
-  $journalPage = $("#post");
-  $instructionPage = $("#restart-quit");
-  $scorePage = $("#score");
-  $scorePageEntry = $('#score p');
+  init();
 
-  // Attribute the area variables to their according divs
-  $textarea = $('textarea');
-  $webarea =   $('#para');
+  function init() {
+    renderer = new THREE.WebGLRenderer({ canvas: document.getElementById(conf.el), antialias: true, alpha: true });
+    camera = new THREE.PerspectiveCamera(conf.fov);
+    camera.position.z = conf.cameraZ;
 
-  // Attribute the button variables to their according divs
-  $restartButton = $(".game-button#restart");
-  $offButton = $(".game-button#turnoff");
-  $internetButton = $(".game-button#internet");
-  $journalButton = $(".game-button#journal");
-  $closeWebPageButton = $("#close-web");
-  $closeJournalButton = $("#close-journal");
+    updateSize();
+    window.addEventListener('resize', updateSize, false);
 
-  // Attribute the actions (functions) associated to each button on click
-  $('#sign-in-button').on('click',signIn);
-  $restartButton.on('click', restartGame);
-  $offButton.on('click', turnOffGame);
-  $internetButton.on('click', openInternet);
-  $journalButton.on('click', openJournal);
-  $closeWebPageButton.on('click', closeWebPage);
-  $closeJournalButton.on('click', closeJournal);
+    document.addEventListener('mousemove', e => {
+      const v = new THREE.Vector3();
+      camera.getWorldDirection(v);
+      v.normalize();
+      mousePlane.normal = v;
+      mouse.x = e.clientX / width * 2 - 1;
+      mouse.y = -(e.clientY / height) * 2 + 1;
+      raycaster.setFromCamera(mouse, camera);
+      raycaster.ray.intersectPlane(mousePlane, mousePosition);
+    });
 
-}
+    window.addEventListener( 'wheel', onMouseWheel, false );
 
-// restartGame()
-//
-// A function that reset the game without removing the content of the archive to keep the previous journal entries.
-function restartGame() {
-  // The browser is to be open again
-  browserOpen = false;
-  // The markov generation is to be computed again
-  generation = false;
-  // The journal entry needs to be written again
-  journalEntryWritten = false;
-  // The instruction page disappears
-  $instructionPage.css('display','none');
-  // The webpage tab closes
-  closeWebPage();
-  // The journal tab closes
-  closeJournal();
-  // The journal entry is pushed to the archive array
-  archive.push($textarea.val());
-  // The journal is put back to blank
-  $textarea.val("");
-  // The sign in page reappear
-  $signInPage.css('display','block');
-}
-
-// turnOffGame
-//
-// A function that is triggered by the OFF button.
-// It calls the restartGame() function, so reset the game.
-// It also display the score page so the user can see all the user entries
-function turnOffGame() {
-  // Reset the game without resetting the archive
-  restartGame();
-  // The sign in page disappears
-  $signInPage.css('display','none');
-  // The score page appears
-  $scorePage.css('display','block');
-  // Display each entry according to each day (each time resetted)
-  for (var k = archive.length-1; k >= 0; k--) {
-    day = k+1;
-    $scorePageEntry.last().after('<p span id= "day"> Day '+ day + '<p>' + archive[k] + '</p>');
+    initScene();
+    animate();
   }
-}
 
-// signIn()
-//
-// A function that handles the action after the user click on the sign in button on the
-// sign in page
-function signIn() {
-  // The sign in page (current) disappears
-  $signInPage.css('display','none');
-  // The computer desktop page appears
-  $homePage.css('display','block');
-  // The instruction page stays hidden
-  $instructionPage.css('display','none');
-}
 
-// openInternet()
-//
-// A function that handles the actions when the user clicks on the browser icon for the first time in a "day".
-// The function prompt the program to generate a random 4 Chan thread in real time. The forum comments
-// are extracted and accumulated so that RiTa markov generator generates a new one. This new comment will
-// be the generated with the purpose of being a new journal entry.
-// The thread page is also displayed in the user's browser tab.
-// The function also prompts the typing of the new comment in the journal text area
-function openInternet() {
-  // Display the web page tab
-  $webPage.css('display', 'block');
-  // If the browser has not been opened yet on that "day"
-  if (browserOpen === false) {
-    // Generate the random thread and display it in the tab
-    generateWebPage();
-    // Generate the new journal entry with RiMarkov
-    generateMarkov();
-    // Display the new journal entry character by character with each user's keydown when in the textarea
-    generateJournalEntry();
-    // Mark the browser as opened for the day
-    browserOpen = true;
+  function initScene() {
+    scene = new THREE.Scene();
+    initLights();
+
+    let mat = new THREE.MeshLambertMaterial({ color: 0xFFFF, side: THREE.DoubleSide });
+    // let mat = new THREE.MeshPhongMaterial({ color: 0xffffff });
+    // let mat = new THREE.MeshStandardMaterial({ color: 0x808080, roughness: 0.5, metalness: 0.8 });
+    let geo = new THREE.PlaneBufferGeometry(wWidth, wHeight, wWidth / 2, wHeight / 2);
+    plane = new THREE.Mesh(geo, mat);
+    scene.add(plane);
+
+    plane.rotation.x = -Math.PI / 2 - 0.2;
+    plane.position.y = -25;
+    camera.position.z = 60;
+    camera.position.y = 0.000;
   }
-}
 
-// openJournal
-//
-// A function that displays the journal tab when the journal icon is clicked
-function openJournal() {
-  $journalPage.css('display', 'block');
-}
+  function initLights() {
+    const r = 30;
+    const y = 10;
+    const lightDistance = 500;
 
-// closeWebPage()
-//
-// A function that hides the web page tab when its 'x' icon is clicked
-function closeWebPage() {
-  $webPage.css('display', 'none');
-}
+    // light = new THREE.AmbientLight(conf.ambientColor);
+    // scene.add(light);
 
-// closeJournal()
-//
-// A function that hides the journal tab when its 'x' icon is clicked depending
-// on if the entry has been written entirely or not
-function closeJournal() {
-  // The entry has not been entirely written
-  if (journalEntryWritten === false) {
-    // Hide the journal tab
-    $journalPage.css('display', 'none');
+    light1 = new THREE.PointLight(conf.light1Color, conf.lightIntensity, lightDistance);
+    light1.position.set(0, y, r);
+    scene.add(light1);
+    light2 = new THREE.PointLight(conf.light2Color, conf.lightIntensity, lightDistance);
+    light2.position.set(0, -y, -r);
+    scene.add(light2);
+    light3 = new THREE.PointLight(conf.light3Color, conf.lightIntensity, lightDistance);
+    light3.position.set(mouse.x,mouse.y,-r);
+    scene.add(light3);
+    light4 = new THREE.PointLight(conf.light4Color, conf.lightIntensity, lightDistance);
+    light4.position.set(-r, y, 0);
+    scene.add(light4);
   }
-  // The entry has been written entirely
-  if (journalEntryWritten === true) {
-    // Display the instructions
-    $instructionPage.css('display', 'block');
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    animatePlane();
+    animateLights();
+
+    renderer.render(scene, camera);
+  };
+
+  function animatePlane() {
+    gArray = plane.geometry.attributes.position.array;
+    const time = Date.now() * 0.0002;
+    for (let i = 0; i < gArray.length; i += 3) {
+      gArray[i + 2] = simplex.noise4D(gArray[i] / conf.xyCoef, gArray[i + 1] / conf.xyCoef, time, mouse.x + mouse.y) * conf.zCoef;
+    }
+    plane.geometry.attributes.position.needsUpdate = true;
+    // plane.geometry.computeBoundingSphere();
   }
-}
 
-// generateWebPage()
-//
-// A function that requests and gets the data of a random 4Chan thread.
-// It also isolate and accumulate the forum comments in a local variable
-function generateWebPage() {
+  function animateLights() {
+    const time = Date.now() * 0.001;
+    const d = 50;
+    light1.position.x = Math.sin(time * 0.1) * d;
+    light1.position.z = Math.cos(time * 0.2) * d;
+    light2.position.x = Math.cos(time * 0.3) * d;
+    light2.position.z = Math.sin(time * 0.4) * d;
+    light3.position.x = Math.sin(time * 0.5) * d;
+    light3.position.y = -d;
+    light3.position.z = Math.sin(time * 0.6) * d;
+    light4.position.x = Math.sin(time * 0.7) * d;
+    light4.position.y = -d;
+    light4.position.z = Math.cos(time * 0.8) * d;
+  }
 
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-      // If the request is successful
-      if (this.readyState === 4 && this.status === 200) {
-        // the content of the HTML page
-        content = this.responseText;
-        // Copy the content (HTML text) in the web area of the game
-        $webarea.html(content);
-        // Get all the posts of the thread and store it in 'comments'
-        comments = $("blockquote.postMessage").text();
-        // Add the comments in the textToMarkov accumulating all the comments of every opened thread
-        textToMarkov += comments;
-        // A function that removes the href tag to every a link of the page so that
-        // the user cannot quit the game
-        $(function(){
-          $('a').each(function() {
-            $(this).attr('href', ' ');
-          });
-        });
+  function updateSize() {
+    width = window.innerWidth;cx = width / 2;
+    height = window.innerHeight;cy = height / 2;
+    if (renderer && camera) {
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      const wsize = getRendererSize();
+      wWidth = wsize[0];
+      wHeight = wsize[1];
+    }
+  }
+
+  function getRendererSize() {
+    const cam = new THREE.PerspectiveCamera(camera.fov, camera.aspect);
+    const vFOV = cam.fov * Math.PI / 180;
+    const height = 2 * Math.tan(vFOV / 2) * Math.abs(conf.cameraZ);
+    const width = height * cam.aspect;
+    return [width, height];
+    console.log(width, height);
+  }
+
+  function onMouseWheel(ev) {
+    if(ev.deltaY < 0) {
+      var i = 0.000;
+      if (camera.position.y >= -30) {
+        camera.position.y -= Math.pow(2, i);
+        i = i+0.001;
+
+        conf.zCoef += (i*1000);
+        console.log(conf.zCoef);
       }
     }
-    // open a randomly generated thread
-    xhr.open("GET", "https://cors-anywhere.herokuapp.com/http://boards.4channel.org/" + links[(Math.floor(Math.random() * 48))] + "/");
-    // send the request
-    xhr.send();
-}
-
-// generateMarkov()
-//
-// A function that creates a new RiMarkov model and calls its generation every time the journal tab is clicked
-function generateMarkov() {
-  markov = new RiMarkov(3);
-  $journalPage.click(generate);
-}
-
-// generate()
-//
-// A function that generates the new comment if it hasn't been generated during the "day" yet.
-// The function also attemps to replace the numbers and the '>' characters from the string.
-function generate() {
-  // If there was not another comment generation during the same day
-  if (generation === false) {
-    // Load the text to the markov model
-    markov.loadText(textToMarkov);
-    if (!markov.ready()) return;
-    // Generate 4 sentences from the text loaded in the markov model
-    lines = markov.generateSentences(4);
-    // Store the 4 sentences, so the new comment, in the variable 'dataString'
-    dataString = lines.join(' ');
-
-    // Remove each number
-    for (var i = 0; i <= 20000000; i++) {
-      dataString = dataString.replace(String(i),"");
+    if(ev.deltaY > 0) {
+      var i = 0.00;
+      if (camera.position.y < 0) {
+        camera.position.y += Math.pow(2, i);
+        i = i+0.001;
+        conf.zCoef -= (i*1000);
+      }
     }
-    // Replace combinations of '>'
-    dataString = dataString.replace(" >","");
-    dataString = dataString.replace(">","");
-    dataString = dataString.replace(" > ","");
-    // Mark the generation as done for the day
-    generation = true;
-  }
-}
+	}
 
-// generateJournalEntry()
-//
-// A function that displays, character by character, the new comment in the text area of the journal.
-// Each character is displayed individually to replace the user's key typed until the comment is finished.
-function generateJournalEntry() {
-  (function($) {
-    var i = 0;
-    // The function is triggered at the key up of each character typed by the user
-    $textarea.keyup(function (e){
-      var prev = "";
-      if (i < dataString.length) {
-        for (var j = 0; j < i; j++) {
-          prev += dataString[j];
-        }
-        $(this).val(prev + dataString[i]);
-        i++;
-      }
-      // If the journal entry is completely written
-      if (i >= dataString.length) {
-        // Mark the journal entry as written for the day
-        journalEntryWritten = true;
-      }
-    })
-  })(jQuery);
 }

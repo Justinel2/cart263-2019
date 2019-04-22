@@ -16,64 +16,43 @@
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous"></script>
-  <script src="js/libraries/rita.min.js"></script>
 
-  <!--FONT-->
-  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,400,700,900" rel="stylesheet">
-
-  <!-- My script(s) -->
-  <script src="js/script.js"></script>
 </head>
 
 <body>
-  <!-- sign in page-->
-  <div class="page" id="signin">
-    <div id="user">
-      <img class="user-image" src="assets/images/duck.jpg">
-      <form><input id="psw" type="password"><button id="sign-in-button" type="button" name="button">Sign In</button></form>
-    </div>
-    <div class="buttons">
-      <button class="game-button" id="restart" type="button"><img class="game-button-img" src="assets/images/restart.png"></button>
-      <button class="game-button" id="turnoff" type="button"><img class="game-button-img" src="assets/images/turnoff.jpg"></button>
-    </div>
-  </div>
 
-  <!-- home page-->
-  <div class="page" id="home">
-    <div id="desktop">
-      <img src="assets/images/trash.jpg" alt="">
-    </div>
-    <div id="taskbar">
-      <button class="game-button" id="turnoff" type="button"><img class="taskbar-icons" src="assets/images/turnoff.jpg"></button>
-      <button class="game-button" id="restart" type="button"><img class="taskbar-icons" src="assets/images/restart.png"></button>
-      <button class="game-button" id="internet" type="button"><img class="taskbar-icons" src="assets/images/internet.png"></button>
-      <button class="game-button" id="journal" type="button"><img class="taskbar-icons" src="assets/images/journal.png"></button>
+  <body class="text-center">
+
+  <div id="page">
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <!-- <h3 class="masthead-brand">Background #1</h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link" href="https://codepen.io/soju22/" target="_blank">Codepen Profile</a>
+            <a class="nav-link" href="https://codepen.io/collection/AGZywR" target="_blank">ThreeJS Collection</a>
+          </nav> -->
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+
+      </main>
+
+      
     </div>
   </div>
 
-  <!-- web page-->
-  <div class="page" class="tab" id="fourchan">
-    <div class="top-bar"><button id="close-web" class="close" type="button" name="button">X</button></div>
-    <div id="para">
-    </div>
-  </div>
+  <canvas id="background"></canvas>
 
-  <!-- journal page-->
-  <div class="page" class="tab" id="post">
-    <div class="top-bar"><button id="close-journal" class="close" type="button" name="button">X</button></div>
-    <div id="journal-entry"> <p id="intro">Dear journal, </p> <textarea name="name" rows="8" cols="80"></textarea></div>
-  </div>
-
-  <div id="restart-quit">
-    <p id="instructions"> Press the restart button to save your entry start a new day. Press the off button
-                          to finish the game and see all your journal entries!</p>
-  </div>
-
-  <!-- score page-->
-  <div class="page" id="score">
-    <h1>My Journal</h1>
-    <p></p>
-  </div>
 </body>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/100/three.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/chroma-js/2.0.3/chroma.min.js'></script>
+
+
+  <!-- My script(s) -->
+  <script src="js/script.js"></script>
 
 </html>
