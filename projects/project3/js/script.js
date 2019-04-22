@@ -8,8 +8,10 @@ GenerateBg({ el: 'background' });
 
 $(document).ready(setup);
 
-let introduction = "I am your new friend. I'm really excited to meet you.";
+let introductions = ["I am your new friend. I'm really excited to meet you. Can you hear me?", "Good. Can I get to know you a little bit?", "Perfect. Let's start."];
+let transitions = ["Mmm... I see. ", "and ", "Good! ", "So, ", "That's interesting. ", "Wow! I didn't expect that. And ", "Now, I wanna know "];
 let $id;
+let toSay;
 
 function setup() {
    $.getJSON('data/data.json');
@@ -30,9 +32,28 @@ function getID() {
 
 function doIntroduction () {
   if (annyang) {
-    let completeIntroduction = ("Hello " + $id[0] + ". " + introduction)
-    responsiveVoice.speak(completeIntroduction,'US English Female', {rate: 1 });
+    annyang.start();
+    let i = 0;
+    introductions[i] = ("Hello " + $id[0] + ". " + introductions[0]);
+    speak(introductions[i]);
+    i++;
+    var commands = {
+    'yes': function() {
+      console.log("yes");
+      speak(introductions[i]);
+      i++
+      if (i >= introductions.length){
+        doQuestionning();
+      }
+    }
+  };
+    // Add our commands to annyang
+ annyang.addCommands(commands);
   }
+}
+
+function speak(text) {
+  responsiveVoice.speak(text,'US English Female', {rate: 1 });
 }
 
 
