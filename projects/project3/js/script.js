@@ -8,16 +8,31 @@ GenerateBg({ el: 'background' });
 
 $(document).ready(setup);
 
-let introduction = "Hello. I am your new friend. I'm really excited to meet you.";
+let introduction = "I am your new friend. I'm really excited to meet you.";
 let $id;
 
 function setup() {
    $.getJSON('data/data.json');
-   talk();
+
+   $('#submit-button').on('click',getID);
 }
 
-function talk () {
-  responsiveVoice.speak(introduction,'US English Female', {rate: 1 });
+function getID() {
+  // console.log(("#name").val());
+  if ($("#name").val() != "" && $("#age").val() != "" && $("#location").val() != "") {
+    $id = [$("#name").val(), $("#age").val(), $("#location").val()];
+    doIntroduction();
+  }
+  else {
+    console.log("nothing entered");
+    }
+}
+
+function doIntroduction () {
+  if (annyang) {
+    let completeIntroduction = ("Hello " + $id[0] + ". " + introduction)
+    responsiveVoice.speak(completeIntroduction,'US English Female', {rate: 1 });
+  }
 }
 
 
