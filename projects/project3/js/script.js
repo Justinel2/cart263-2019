@@ -1,7 +1,16 @@
 
-App({ el: 'background' });
+/*****************
+SURF THE WEB AS
+******************/
+GenerateBg({ el: 'background' });
 
-function App(conf) {
+"use strict";
+
+function setup() {
+  
+}
+
+function GenerateBg(conf) {
   conf = {
     fov: 75,
     cameraZ: 75,
