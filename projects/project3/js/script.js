@@ -6,9 +6,35 @@ GenerateBg({ el: 'background' });
 
 "use strict";
 
+$(document).ready(setup);
+
+// question words array
+// let questionWords = [
+//   "meal",
+// ]
+
+
 function setup() {
-  
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function GenerateBg(conf) {
   conf = {
@@ -45,18 +71,8 @@ function GenerateBg(conf) {
     camera.position.z = conf.cameraZ;
 
     updateSize();
-    window.addEventListener('resize', updateSize, false);
 
-    document.addEventListener('mousemove', e => {
-      const v = new THREE.Vector3();
-      camera.getWorldDirection(v);
-      v.normalize();
-      mousePlane.normal = v;
-      mouse.x = e.clientX / width * 2 - 1;
-      mouse.y = -(e.clientY / height) * 2 + 1;
-      raycaster.setFromCamera(mouse, camera);
-      raycaster.ray.intersectPlane(mousePlane, mousePosition);
-    });
+    window.addEventListener('resize', updateSize, false);
 
     window.addEventListener( 'wheel', onMouseWheel, false );
 
