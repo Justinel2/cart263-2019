@@ -8,14 +8,16 @@ GenerateBg({ el: 'background' });
 
 $(document).ready(setup);
 
-// question words array
-// let questionWords = [
-//   "meal",
-// ]
-
+let introduction = "Hello. I am your new friend. I'm really excited to meet you.";
+let $id;
 
 function setup() {
+   $.getJSON('data/data.json');
+   talk();
+}
 
+function talk () {
+  responsiveVoice.speak(introduction,'US English Female', {rate: 1 });
 }
 
 
