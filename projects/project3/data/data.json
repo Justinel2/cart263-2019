@@ -1,5 +1,4 @@
-{
-  "casual": [
+[
   "If you didn’t have to sleep, what would you do with the extra time?",
   "What’s your favorite piece of clothing you own / owned?",
   "What hobby would you get into if time and money weren’t an issue?",
@@ -86,9 +85,7 @@
   "What are you absolutely determined to do?",
   "What is the most impressive thing you know how to do?",
   "What do you wish you knew more about?",
-  "What question would you most like to know the answer to?"
-],
-"depth": [
+  "What question would you most like to know the answer to?",
   "What question can you ask to find out the most about a person?",
   "When was the last time you changed your opinion / belief about something major?",
   "What was the best compliment you’ve received?",
@@ -133,9 +130,7 @@
   "What gets you fired up?",
   "What challenging thing are you working through these days?",
   "What irrational fear do you have?",
-  "What’s the best and worst piece of advice you’ve ever received?"
-],
-"personal": [
+  "What’s the best and worst piece of advice you’ve ever received?",
   "If you had a clock that would countdown to any one event of your choosing, what event would you want it to countdown to?",
   "What makes a good life?",
   "What do you strongly suspect but have no proof of?",
@@ -181,9 +176,7 @@
   "In your group of friends, what role do you play?",
   "Among your friends or family, what are you famous for?",
   "What is the biggest lesson you never learned?",
-  "What’s the most immature thing that you do?"
-],
-"spy": [
+  "What’s the most immature thing that you do?",
   "What are your parents called?",
   "What is your field of expertise",
   "Do you consider yourself politically more towards the left or the right",
@@ -192,6 +185,6 @@
   "You consider yourself in the higher, middle or low class?",
   "What is your favorite color?",
   "What languages do you speak?",
-  "Where did you study?",
+  "Where did you study?"
 ]
 }

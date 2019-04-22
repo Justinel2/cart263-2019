@@ -11,11 +11,11 @@ $(document).ready(setup);
 let introductions = ["I am your new friend. I'm really excited to meet you. Can you hear me?", "Good. Can I get to know you a little bit?", "Perfect. Let's start."];
 let transitions = ["Mmm... I see. ", "and ", "Good! ", "So, ", "That's interesting. ", "Wow! I didn't expect that. And ", "Now, I wanna know "];
 let $id;
-let toSay;
+let asked = 0;
 
 function setup() {
-   $.getJSON('data/data.json');
 
+  $.getJSON('data/data.json', getData);
    $('#submit-button').on('click',getID);
 }
 
@@ -43,17 +43,34 @@ function doIntroduction () {
       speak(introductions[i]);
       i++
       if (i >= introductions.length){
+        console.log("done intro")
+        // $.getJSON('data/data.json', doQuestionning);
         doQuestionning();
       }
     }
   };
     // Add our commands to annyang
- annyang.addCommands(commands);
+    annyang.addCommands(commands);
   }
 }
 
+function doQuestionning(data) {
+  console.log("doQuestionning")
+  let i = Math.floor(Math.random() * transitions.length);
+  speak(transitions[i]);
+  // $.getJSON("data/data.json", function(data) {
+  //   if (asked % 3 === 0 && asked != 0) {
+  //     text = random
+  //   }
+  // });
+}
+
+
+
 function speak(text) {
+  annyang.pause();
   responsiveVoice.speak(text,'US English Female', {rate: 1 });
+  annyang.resume();
 }
 
 
