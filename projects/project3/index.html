@@ -1,79 +1,79 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
 
-    <!-- CSS stylesheet(s) -->
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <!-- CSS stylesheet(s) -->
+  <link rel="stylesheet" type="text/css" href="css/style.css"/>
 
-    <!-- Library script(s) -->
-    <script src="js/libraries/p5.min.js"></script>
-    <script src="js/libraries/p5.dom.min.js"></script>
-    <script
+  <!-- Libraries -->
+  <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-
-  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
   <script
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous"></script>
+  <script src="js/libraries/rita.min.js"></script>
 
-    <!-- My script(s) -->
-    <script src="js/script.js"></script>
-  </head>
+  <!--FONT-->
+  <link href="https://fonts.googleapis.com/css?family=Merriweather:300,400,700,900" rel="stylesheet">
 
-  <body>
-    <!-- Main Page -->
-    <div class="page">
-      <a href="#submit">submit</a>
-      <a href="#connection">browse</a>
+  <!-- My script(s) -->
+  <script src="js/script.js"></script>
+</head>
+
+<body>
+  <!-- sign in page-->
+  <div class="page" id="signin">
+    <div id="user">
+      <img class="user-image" src="assets/images/duck.jpg">
+      <form><input id="psw" type="password"><button id="sign-in-button" type="button" name="button">Sign In</button></form>
     </div>
-    <!-- Submit Flag Page -->
-    <div class="page" id="submit">
-      <form action="/action_page.php">
-        Person's first name:<br>
-        <input type="text" name="firstname">
-        <br>
-        Person's last name:<br>
-        <input type="text" name="lastname">
-        <br>
-        City:<br>
-        <input type="text" name="location">
-        <br>
-        Person's social media links:<br>
-        <input type="text" name="social">
-        <br>
-        Person's description:<br>
-        <input type="text" name="description">
-        <br>
-        Flags:<br>
-        <input type="text" name="flags">
-        <br>
-        Met on which platform/location (if it is the case):<br>
-        <input type="text" name="platform">
-
-        <br><br>
-        <input type="submit" value="Submit">
-      </form>
+    <div class="buttons">
+      <button class="game-button" id="restart" type="button"><img class="game-button-img" src="assets/images/restart.png"></button>
+      <button class="game-button" id="turnoff" type="button"><img class="game-button-img" src="assets/images/turnoff.jpg"></button>
     </div>
-    <!-- Connection Page -->
-    <div class="page" id="connection">
-      <div class="sign-in">
-        <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+  </div>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Enter Password" name="psw" required>
-
-      <button type="submit">Login</button>
-      </div>
-      <div class="sign-up">
-
-      </div>
+  <!-- home page-->
+  <div class="page" id="home">
+    <div id="desktop">
+      <img src="assets/images/trash.jpg" alt="">
     </div>
-  </body>
+    <div id="taskbar">
+      <button class="game-button" id="turnoff" type="button"><img class="taskbar-icons" src="assets/images/turnoff.jpg"></button>
+      <button class="game-button" id="restart" type="button"><img class="taskbar-icons" src="assets/images/restart.png"></button>
+      <button class="game-button" id="internet" type="button"><img class="taskbar-icons" src="assets/images/internet.png"></button>
+      <button class="game-button" id="journal" type="button"><img class="taskbar-icons" src="assets/images/journal.png"></button>
+    </div>
+  </div>
+
+  <!-- web page-->
+  <div class="page" class="tab" id="fourchan">
+    <div class="top-bar"><button id="close-web" class="close" type="button" name="button">X</button></div>
+    <div id="para">
+    </div>
+  </div>
+
+  <!-- journal page-->
+  <div class="page" class="tab" id="post">
+    <div class="top-bar"><button id="close-journal" class="close" type="button" name="button">X</button></div>
+    <div id="journal-entry"> <p id="intro">Dear journal, </p> <textarea name="name" rows="8" cols="80"></textarea></div>
+  </div>
+
+  <div id="restart-quit">
+    <p id="instructions"> Press the restart button to save your entry start a new day. Press the off button
+                          to finish the game and see all your journal entries!</p>
+  </div>
+
+  <!-- score page-->
+  <div class="page" id="score">
+    <h1>My Journal</h1>
+    <p></p>
+  </div>
+</body>
 
 </html>
