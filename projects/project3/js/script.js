@@ -13,10 +13,23 @@ let transitions = ["Mmm... I see. ", "and ", "Good! ", "So, ", "That's interesti
 let $id;
 let asked = 0;
 
+let questions = [];
+let responses = [];
+let wordList = [];
+let wordString = "";
+
+let question;
+
 function setup() {
 
   $.getJSON('data/data.json', getData);
    $('#submit-button').on('click',getID);
+}
+
+function getData(data) {
+  for (var i = 0; i < data.length; i++) {
+        questions.push(data[i]);
+    }
 }
 
 function getID() {
@@ -55,22 +68,46 @@ function doIntroduction () {
 }
 
 function doQuestionning(data) {
-  console.log("doQuestionning")
+  console.log("doQuestionning");
   let i = Math.floor(Math.random() * transitions.length);
-  speak(transitions[i]);
-  // $.getJSON("data/data.json", function(data) {
-  //   if (asked % 3 === 0 && asked != 0) {
-  //     text = random
-  //   }
-  // });
+  question = questions.splice(Math.random() * questions.length, 1)[0];
+  if (asked == 0) {
+    speak(question);
+  }
+  else {
+    speak(transitions[i] + "." + question);
+  }
+  asked++;
+  getResponse();
+}
+
+function getResponse() {
+  annyang.addCallback('result',function(response) {
+  var completeResponse = "";
+  console.log(response[0]);
+  completeResponse += response[0];
+  var commands = {
+    'done': function() {
+      // saveResponse();
+      annyang.pause();
+      console.log("pause");
+      responses.push(completeResponse);
+      annyang.start();
+      console.log("SAVED: " + responses);
+      doQuestionning();
+    }
+  }
+  // Add our commands to annyang
+  annyang.addCommands(commands);
+  });
 }
 
 
 
 function speak(text) {
-  annyang.pause();
+  // annyang.pause();
   responsiveVoice.speak(text,'US English Female', {rate: 1 });
-  annyang.resume();
+  // annyang.resume();
 }
 
 
@@ -239,7 +276,7 @@ function GenerateBg(conf) {
         i = i+0.001;
 
         conf.zCoef += (i*1000);
-        console.log(conf.zCoef);
+        // console.log(conf.zCoef);
       }
     }
     if(ev.deltaY > 0) {
