@@ -22,6 +22,7 @@ let question;
 
 let mic, recorder, soundFile;
 let recordings = [];
+let volume;
 
 function setup() {
 
@@ -47,7 +48,21 @@ function getData(data) {
 
   // create an empty sound file that we will use to playback the recording
   soundFile = new p5.SoundFile();
+
+  $('body').mousemove(function (e) {
+    // console.log(windowHeight);
+    volume = map(e.pageY, 0, windowHeight, 1, 0);
+    // console.log(volume);
+  });
+
+  playRecordings();
 }
+
+// function draw() {
+//   if (asked >= 2) {
+//     // playRecordings();
+//   }
+// }
 
 function getID() {
   // console.log(("#name").val());
@@ -116,6 +131,7 @@ function getResponse() {
     'done': function() {
       // annyang.pause();
       responses.push(completeResponse);
+      completeResponse = "";
       annyang.start();
       console.log("SAVED: " + responses);
       recorder.stop(); // stop recorder, and send the result to soundFile
@@ -130,9 +146,9 @@ function getResponse() {
 }
 
 function playRecordings() {
-  console.log("play recordings");
+  // console.log("play recordings");
   for (var i = 0; i < recordings.length; i++) {
-    console.log("play recordings loop");
+    // console.log("play recordings loop");
     recordings[i].play();
     // saveSound(recordings[i], 'mySound' + [i] + '.wav'); // save file
   }
