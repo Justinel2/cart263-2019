@@ -8,7 +8,7 @@
 
 html,
 body {
-  height: 200%;
+  height: 150%;
   overflow: hidden;
 }
 
@@ -17,7 +17,7 @@ body {
   justify-content: center;
   color: #212529;
   /* background-color: black; */
-  background-image: linear-gradient(white, grey);
+  background-image: linear-gradient(white, black);
   font-family: 'Montserrat', sans-serif;
   /* box-shadow: inset 0 0 2rem rgba(0, 0, 0, .5); */
 }
@@ -31,7 +31,7 @@ body {
 
 #sun {
   position: fixed;
-  
+
 }
 
 #background {

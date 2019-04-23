@@ -244,13 +244,23 @@ function GenerateBg(conf) {
 
   function initScene() {
     scene = new THREE.Scene();
+
     initLights();
 
-    let mat = new THREE.MeshLambertMaterial({ color: 0xFFFF, side: THREE.DoubleSide });
-    // let mat = new THREE.MeshPhongMaterial({ color: 0xffffff });
-    // let mat = new THREE.MeshStandardMaterial({ color: 0x808080, roughness: 0.5, metalness: 0.8 });
-    let geo = new THREE.PlaneBufferGeometry(wWidth, wHeight, wWidth / 2, wHeight / 2);
-    plane = new THREE.Mesh(geo, mat);
+    // load a texture, set wrap mode to repeat
+    // var texture = new THREE.TextureLoader().load( "/assets/images/skin_SPEC.png" );
+    // texture.wrapS = THREE.RepeatWrapping;
+    // texture.wrapT = THREE.RepeatWrapping;
+    // texture.repeat.set( 1, 1 );
+
+    let materialPlane = new THREE.MeshPhongMaterial({color: 0xffffff, transparent: false, shininess: 60, metalness: 0.8, side: THREE.DoubleSide});
+
+    materialPlane.bumpMap = new THREE.TextureLoader().load( "/assets/images/skin_DISP.png" );
+    // materialPlane.bumpScale = 0.8;
+    materialPlane.displacementMap = new THREE.TextureLoader().load( "/assets/images/skin_DISP.png" );
+    materialPlane.displacementScale = 3;
+    let geo = new THREE.PlaneBufferGeometry(wWidth, wHeight, wWidth*4, wHeight*4);
+    plane = new THREE.Mesh(geo, materialPlane);
     scene.add(plane);
 
     var geometry = new THREE.SphereGeometry(10, 100, 100, 0, Math.PI * 2, 0, Math.PI * 2);
@@ -267,6 +277,15 @@ function GenerateBg(conf) {
     camera.position.z = 60;
     camera.position.y = 0.000;
   }
+
+  // function getMaterialPlane() {
+  //   // set canvas as bumpmap
+  //   materialPlane.bumpMap = new THREE.TextureLoader.load( "/assets/images/skin_DISP.png" );
+  //   materialPlane.bumpScale = 0.8;
+  //   materialPlane.displacementMap = new THREE.TextureLoader.load( "/assets/images/skin_DISP.png" );
+  //   materialPlane.displacementScale = 30;
+  // }
+
 
   function initLights() {
     const r = 30;
@@ -289,6 +308,7 @@ function GenerateBg(conf) {
     light4.position.set(-r, y, 0);
     scene.add(light4);
   }
+
 
   function animate() {
     requestAnimationFrame(animate);
