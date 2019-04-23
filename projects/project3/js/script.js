@@ -23,7 +23,7 @@ let question;
 let mic, recorder, soundFile, amplitude;
 let loop = 0;
 let recordings = [];
-let volume;
+let volume = 0;
 
 function setup() {
 
@@ -49,15 +49,15 @@ function getData(data) {
   // create an empty sound file that we will use to playback the recording
   soundFile = new p5.SoundFile();
 
-  $('body').mousemove(function (e) {
-    // console.log(windowHeight);
-    volume = map(e.pageY, 0, windowHeight/2, 1, 0);
-    if (e.payeY >= windowHeight/2){
-      volume = 0;
-    }
-    // console.log(volume);
-    playRecordings(volume);
-  });
+  // $('body').mousemove(function (e) {
+  //   // console.log(windowHeight);
+  //   // volume = map(e.pageY, 0, windowHeight/2, 1, 0);
+  //   // if (e.payeY >= windowHeight/2){
+  //   //   volume = 0;
+  //   // }
+  //   // console.log(volume);
+  //   playRecordings();
+  // });
 
   // playRecordings();
 }
@@ -80,10 +80,10 @@ function getID() {
 }
 
 function doIntroduction () {
+  // users must manually enable their browser microphone for recording to work properly!
+  mic.start();
   if (annyang) {
     annyang.start();
-    // users must manually enable their browser microphone for recording to work properly!
-  mic.start();
     let i = 0;
     introductions[i] = ("Hello " + $id[0] + ". " + introductions[0]);
     speak(introductions[i]);
@@ -141,8 +141,8 @@ function getResponse() {
       recorder.stop(); // stop recorder, and send the result to soundFile
       recordings.push(soundFile);
       console.log("SAVED SOUNDS: " + recordings);
-      // doQuestionning();
-      playRecordings();
+      doQuestionning();
+      // playRecordings();
     }
   }
   // Add our commands to annyang
@@ -154,10 +154,19 @@ function playRecordings(volume) {
   if (asked >= 1) {
     for (var i = 0; i < recordings.length; i++) {
       // console.log("play recordings loop");
-      recordings[i].setVolume(volume);
+      // recordings[i].setVolume(volume);
       recordings[i].play();
       // saveSound(recordings[i], 'mySound' + [i] + '.wav'); // save file
     }
+  }
+}
+
+function stopRecordings(volume){
+  for (var i = 0; i < recordings.length; i++) {
+    // console.log("play recordings loop");
+    // recordings[i].setVolume(volume);
+    recordings[i].stop(2);
+    // saveSound(recordings[i], 'mySound' + [i] + '.wav'); // save file
   }
 }
 
@@ -346,6 +355,8 @@ function GenerateBg(conf) {
 
         conf.zCoef += (i*1000);
         // console.log(conf.zCoef);
+        volume += 0.001;
+        playRecordings(volume);
       }
     }
     if(ev.deltaY > 0) {
@@ -354,13 +365,15 @@ function GenerateBg(conf) {
         camera.position.y += Math.pow(2, i);
         i = i+0.001;
         conf.zCoef -= (i*1000);
+        volume -= 0.01;
+        stopRecordings(volume);
+
+      }
+      else {
+        volume = 0;
       }
     }
 	}
-
-  function onClick(ev) {
-    console.log("click");
-  }
 
   function onMouseMove( event ) {
     console.log("mouse moves");
@@ -381,7 +394,7 @@ function GenerateBg(conf) {
 
 	  for ( var i = 0; i < intersects.length; i++ ) {
 
-      console.log("mousemove");
+      console.log("DO BRUTAL CODE");
 		    // intersects[ i ].object.material.color.set( 0xff0000 );
 
 	  }
