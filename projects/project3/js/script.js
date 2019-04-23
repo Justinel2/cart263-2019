@@ -24,6 +24,9 @@ let mic, recorder, soundFile, amplitude;
 let loop = 0;
 let recordings = [];
 let volume = 0;
+let started = false;
+
+var sun;
 
 function setup() {
 
@@ -62,6 +65,10 @@ function getData(data) {
   // playRecordings();
 }
 
+function draw() {
+  displaySun();
+}
+
 // function draw() {
 //   if (asked >= 2) {
 //     // playRecordings();
@@ -69,6 +76,7 @@ function getData(data) {
 // }
 
 function getID() {
+  started = true;
   // console.log(("#name").val());
   if ($("#name").val() != "" && $("#age").val() != "" && $("#location").val() != "") {
     $id = [$("#name").val(), $("#age").val(), $("#location").val()];
@@ -176,6 +184,16 @@ function speak(text) {
   // annyang.resume();
 }
 
+function displaySun(){
+  if (sun.position.y > 20 && started === true) {
+    sun.translateY(-1);
+  }
+  if (sun.position.y <= 25) {
+    sun.translateY(random(-0.5, 0.5));
+    sun.translateX(random(-0.5, 0.5));
+  }
+}
+
 
 
 
@@ -265,14 +283,14 @@ function GenerateBg(conf) {
 
     var geometry = new THREE.SphereGeometry(10, 100, 100, 0, Math.PI * 2, 0, Math.PI * 2);
     var material =  new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x009900, shininess: 30, transparent: true, blending: THREE.AdditiveBlending } )  ;
-    var cube = new THREE.Mesh(geometry, material);
-    cube.name = "sun";
-    scene.add(cube);
+    sun = new THREE.Mesh(geometry, material);
+    sun.name = "sun";
+    scene.add(sun);
 
     plane.rotation.x = -Math.PI / 2 - 0.2;
     plane.position.y = -25;
 
-    cube.position.y = 25;
+    sun.position.y = 60;
 
     camera.position.z = 60;
     camera.position.y = 0.000;
