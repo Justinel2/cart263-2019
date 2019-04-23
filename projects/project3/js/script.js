@@ -30,8 +30,16 @@ var sun;
 
 function setup() {
 
+  $('#actions').css("display","visible");
+
   $.getJSON('data/data.json', getData);
-   $('#submit-button').on('click',getID);
+  $('input').on('click', removeValue);
+  $('#submit-button').on('click',getID);
+  console.log ($("#name").val(),$("#age").val(), $("#location").val());
+}
+
+function removeValue() {
+  $(this).val("");
 }
 
 function getData(data) {
@@ -51,35 +59,18 @@ function getData(data) {
 
   // create an empty sound file that we will use to playback the recording
   soundFile = new p5.SoundFile();
-
-  // $('body').mousemove(function (e) {
-  //   // console.log(windowHeight);
-  //   // volume = map(e.pageY, 0, windowHeight/2, 1, 0);
-  //   // if (e.payeY >= windowHeight/2){
-  //   //   volume = 0;
-  //   // }
-  //   // console.log(volume);
-  //   playRecordings();
-  // });
-
-  // playRecordings();
 }
 
 function draw() {
   displaySun();
 }
 
-// function draw() {
-//   if (asked >= 2) {
-//     // playRecordings();
-//   }
-// }
-
 function getID() {
-  started = true;
   // console.log(("#name").val());
-  if ($("#name").val() != "" && $("#age").val() != "" && $("#location").val() != "") {
+  if ($("#name").val() != "" && $("#name").val() != "Name" && $("#age").val() != "" && $("#age").val() != "Age" && $("#location").val() != "" && $("#location").val() != "City") {
     $id = [$("#name").val(), $("#age").val(), $("#location").val()];
+    $('input').fadeOut( "slow" );
+    started = true;
     doIntroduction();
   }
   else {
