@@ -63,6 +63,8 @@ function getID() {
 function doIntroduction () {
   if (annyang) {
     annyang.start();
+    // users must manually enable their browser microphone for recording to work properly!
+  mic.start();
     let i = 0;
     introductions[i] = ("Hello " + $id[0] + ". " + introductions[0]);
     speak(introductions[i]);
@@ -109,16 +111,10 @@ function getResponse() {
     annyang.addCallback('result', speachToLetters);
   };
   annyang.addCallback('result', speachToLetters);
-  // annyang.addCallback('result',function(response) {
-  // var completeResponse = [];
-  // console.log(response[0]);
-  // completeResponse += response[0];
-  // annyang.removeCallback();
 
   var commands = {
     'done': function() {
-      // saveResponse();
-      annyang.pause();
+      // annyang.pause();
       responses.push(completeResponse);
       annyang.start();
       console.log("SAVED: " + responses);
@@ -126,11 +122,20 @@ function getResponse() {
       recordings.push(soundFile);
       console.log("SAVED SOUNDS: " + recordings);
       doQuestionning();
+      // playRecordings();
     }
   }
   // Add our commands to annyang
   annyang.addCommands(commands);
-  // });
+}
+
+function playRecordings() {
+  console.log("play recordings");
+  for (var i = 0; i < recordings.length; i++) {
+    console.log("play recordings loop");
+    recordings[i].play();
+    // saveSound(recordings[i], 'mySound' + [i] + '.wav'); // save file
+  }
 }
 
 function speak(text) {
