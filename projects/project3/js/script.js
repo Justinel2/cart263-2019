@@ -102,8 +102,6 @@ function getResponse() {
   });
 }
 
-
-
 function speak(text) {
   // annyang.pause();
   responsiveVoice.speak(text,'US English Female', {rate: 1 });
