@@ -20,7 +20,8 @@ let wordString = "";
 
 let question;
 
-let mic, recorder, soundFile;
+let mic, recorder, soundFile, amplitude;
+let loop = 0;
 let recordings = [];
 let volume;
 
@@ -41,7 +42,6 @@ function getData(data) {
   // create a sound recorder
   recorder = new p5.SoundRecorder();
 
-
   // connect the mic to the recorder
   recorder.setInput(mic);
 
@@ -51,11 +51,13 @@ function getData(data) {
 
   $('body').mousemove(function (e) {
     // console.log(windowHeight);
-    volume = map(e.pageY, 0, windowHeight, 1, 0);
-    // console.log(volume);
+    volume = map(e.pageY, 0.01, windowHeight, 1, 0);
+    console.log(volume);
+    playRecordings();
+    // playRecordings(volume);
   });
 
-  playRecordings();
+  // playRecordings();
 }
 
 // function draw() {
@@ -137,20 +139,24 @@ function getResponse() {
       recorder.stop(); // stop recorder, and send the result to soundFile
       recordings.push(soundFile);
       console.log("SAVED SOUNDS: " + recordings);
-      doQuestionning();
-      // playRecordings();
+      // doQuestionning();
+      playRecordings();
     }
   }
   // Add our commands to annyang
   annyang.addCommands(commands);
 }
 
-function playRecordings() {
-  // console.log("play recordings");
-  for (var i = 0; i < recordings.length; i++) {
-    // console.log("play recordings loop");
-    recordings[i].play();
-    // saveSound(recordings[i], 'mySound' + [i] + '.wav'); // save file
+function playRecordings(volume) {
+  console.log("play recordings");
+  if (asked >= 1) {
+    for (var i = 0; i < recordings.length; i++) {
+      // console.log("play recordings loop");
+      recordings[i].setVolume(volume);
+      recordings[i].play();
+      // saveSound(recordings[i], 'mySound' + [i] + '.wav'); // save file
+    }
+    loop++;
   }
 }
 
