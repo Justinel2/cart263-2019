@@ -8,7 +8,7 @@
 
 html,
 body {
-  height: 400%;
+  height: 200%;
   overflow: hidden;
 }
 
@@ -20,6 +20,18 @@ body {
   background-image: linear-gradient(white, grey);
   font-family: 'Montserrat', sans-serif;
   /* box-shadow: inset 0 0 2rem rgba(0, 0, 0, .5); */
+}
+
+.actions {
+  z-index: 1;
+  margin-top: 50vh;
+  width: 100%;
+  height: 15%;
+}
+
+#sun {
+  position: fixed;
+  
 }
 
 #background {

@@ -51,10 +51,12 @@ function getData(data) {
 
   $('body').mousemove(function (e) {
     // console.log(windowHeight);
-    volume = map(e.pageY, 0.01, windowHeight, 1, 0);
-    console.log(volume);
-    playRecordings();
-    // playRecordings(volume);
+    volume = map(e.pageY, 0, windowHeight/2, 1, 0);
+    if (e.payeY >= windowHeight/2){
+      volume = 0;
+    }
+    // console.log(volume);
+    playRecordings(volume);
   });
 
   // playRecordings();
@@ -156,7 +158,6 @@ function playRecordings(volume) {
       recordings[i].play();
       // saveSound(recordings[i], 'mySound' + [i] + '.wav'); // save file
     }
-    loop++;
   }
 }
 
@@ -191,11 +192,11 @@ function GenerateBg(conf) {
     xyCoef: 25,
     zCoef: 3,
     lightIntensity: 0.5,
-    ambientColor: 0x000000,
-    light1Color: 0x979797,
-    light2Color: 0x979797,
-    light3Color: 0x979797,
-    light4Color: 0x979797,
+    ambientColor: 0xffffff,
+    light1Color: 0xffffff,
+    light2Color: 0xffffff,
+    light3Color: 0xffffff,
+    light4Color: 0xffffff,
     ...conf };
 
 
@@ -206,7 +207,7 @@ function GenerateBg(conf) {
   let plane;
   const simplex = new SimplexNoise();
 
-  const mouse = new THREE.Vector2();
+  var mouse = new THREE.Vector2();
   const mousePlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
   const mousePosition = new THREE.Vector3();
   const raycaster = new THREE.Raycaster();
@@ -224,6 +225,9 @@ function GenerateBg(conf) {
 
     window.addEventListener( 'wheel', onMouseWheel, false );
 
+    window.addEventListener( 'mousemove', onMouseMove, false );
+    // renderer.domElement.addEventListener("click", onclick, true);
+
     initScene();
     animate();
   }
@@ -240,8 +244,17 @@ function GenerateBg(conf) {
     plane = new THREE.Mesh(geo, mat);
     scene.add(plane);
 
+    var geometry = new THREE.SphereGeometry(10, 100, 100, 0, Math.PI * 2, 0, Math.PI * 2);
+    var material =  new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0x009900, shininess: 30, transparent: true, blending: THREE.AdditiveBlending } )  ;
+    var cube = new THREE.Mesh(geometry, material);
+    cube.name = "sun";
+    scene.add(cube);
+
     plane.rotation.x = -Math.PI / 2 - 0.2;
     plane.position.y = -25;
+
+    cube.position.y = 25;
+
     camera.position.z = 60;
     camera.position.y = 0.000;
   }
@@ -274,7 +287,7 @@ function GenerateBg(conf) {
     animatePlane();
     animateLights();
 
-    renderer.render(scene, camera);
+    render();
   };
 
   function animatePlane() {
@@ -290,8 +303,8 @@ function GenerateBg(conf) {
   function animateLights() {
     const time = Date.now() * 0.001;
     const d = 50;
-    light1.position.x = Math.sin(time * 0.1) * d;
-    light1.position.z = Math.cos(time * 0.2) * d;
+    // light1.position.x = Math.sin(time * 0.1) * d;
+    // light1.position.z = Math.cos(time * 0.2) * d;
     light2.position.x = Math.cos(time * 0.3) * d;
     light2.position.z = Math.sin(time * 0.4) * d;
     light3.position.x = Math.sin(time * 0.5) * d;
@@ -345,4 +358,33 @@ function GenerateBg(conf) {
     }
 	}
 
+  function onClick(ev) {
+    console.log("click");
+  }
+
+  function onMouseMove( event ) {
+    console.log("mouse moves");
+  	// calculate mouse position in normalized device coordinates
+  	// (-1 to +1) for both components
+
+  	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+  	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+  }
+
+  function render() {
+    // update the picking ray with the camera and mouse position
+	  raycaster.setFromCamera( mouse, camera );
+
+	  // calculate objects intersecting the picking ray
+	  var intersects = raycaster.intersectObject( scene.getObjectByName( "sun" ) );
+
+	  for ( var i = 0; i < intersects.length; i++ ) {
+
+      console.log("mousemove");
+		    // intersects[ i ].object.material.color.set( 0xff0000 );
+
+	  }
+    renderer.render(scene, camera);
+  }
 }
