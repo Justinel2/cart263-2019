@@ -20,6 +20,9 @@ let wordString = "";
 
 let question;
 
+let mic, recorder, soundFile;
+let recordings = [];
+
 function setup() {
 
   $.getJSON('data/data.json', getData);
@@ -30,6 +33,20 @@ function getData(data) {
   for (var i = 0; i < data.length; i++) {
         questions.push(data[i]);
     }
+
+    // create an audio in
+  mic = new p5.AudioIn();
+
+  // create a sound recorder
+  recorder = new p5.SoundRecorder();
+
+
+  // connect the mic to the recorder
+  recorder.setInput(mic);
+
+
+  // create an empty sound file that we will use to playback the recording
+  soundFile = new p5.SoundFile();
 }
 
 function getID() {
@@ -82,24 +99,38 @@ function doQuestionning(data) {
 }
 
 function getResponse() {
-  annyang.addCallback('result',function(response) {
   var completeResponse = "";
-  console.log(response[0]);
-  completeResponse += response[0];
+  // Tell recorder to record to a p5.SoundFile which we will use for playback
+  recorder.record(soundFile);
+  var speachToLetters = function (response) {
+    console.log(response[0]);
+    completeResponse += response[0];
+    annyang.removeCallback();
+    annyang.addCallback('result', speachToLetters);
+  };
+  annyang.addCallback('result', speachToLetters);
+  // annyang.addCallback('result',function(response) {
+  // var completeResponse = [];
+  // console.log(response[0]);
+  // completeResponse += response[0];
+  // annyang.removeCallback();
+
   var commands = {
     'done': function() {
       // saveResponse();
       annyang.pause();
-      console.log("pause");
       responses.push(completeResponse);
       annyang.start();
       console.log("SAVED: " + responses);
+      recorder.stop(); // stop recorder, and send the result to soundFile
+      recordings.push(soundFile);
+      console.log("SAVED SOUNDS: " + recordings);
       doQuestionning();
     }
   }
   // Add our commands to annyang
   annyang.addCommands(commands);
-  });
+  // });
 }
 
 function speak(text) {
