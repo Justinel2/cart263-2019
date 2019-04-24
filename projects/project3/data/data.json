@@ -17,7 +17,6 @@
   "What state or country do you never want to go back to?",
   "What songs have you completely memorized?",
   "What game or movie universe would you most like to live in?",
-  "What do you consider to be your best find?",
   "Are you usually early or late?",
   "What pets did you have while you were growing up?",
   "When people come to you for help, what do they usually want help with?",
@@ -185,5 +184,8 @@
   "You consider yourself in the higher, middle or low class?",
   "What is your favorite color?",
   "What languages do you speak?",
-  "Where did you study?"
+  "Where did you study?",
+  "Where do you live",
+  "Who are your best friends?",
+  "Where do you go on the weekends?"
 ]
