@@ -4,7 +4,8 @@ THE SIREN SONG
 Justine Lardeux
 
 Program that contains a responsive voice and speech recognition system (annyang)
-that is meant to interact with the user with questions (from data.json).
+that is meant to interact with the user with questions (from data.json). The game
+has not an option to restart, since the point is to accumulate data.
 
 The voice is embedded in a sphere, sun-like entity, that will retain the user's responses.
 
@@ -29,7 +30,7 @@ GenerateBg({ el: 'background' });
 
 // responsive voice texts
 let introductions = ["I am your new friend. I'm really excited to meet you. Can you hear me?", "Good. Can I get to know you a little bit?", "Perfect. Let's start."];
-let transitions = ["Mmm... I see. ", "and ", "Good! ", "So, ", "That's interesting. ", "Wow! I didn't expect that. And ", "Now, I wanna know "];
+let transitions = ["I see. ", "Awesome!", "Good! ", "So, ", "That's interesting. ", "Wow! I didn't expect that. And ", "Now, I wanna know "];
 let questions = [];
 let question;
 
@@ -136,20 +137,23 @@ function doIntroduction () {
     // start the mic (user's permission)
     mic.start();
     // Define the first level of introduction by including the user's name
-    introductions[0] = ("Hello " + $id[0] + ". " + introductions[0]);
+    // introductions[0] = ("Hello " + $id[0] + ". " + introductions[0]);
     // set the starting index to 0 (first level of introduction)
     i = 0;
-    // responsive voice reads the first level of introduction
-    speak(introductions[i]);
+    if (i == 0) {
+      // responsive voice reads the first level of introduction
+      speak("Hello " + $id[i] + ". " + introductions[i]);
+      // set the index to the next level of introductions
+      i++
+    }
     // If the user responds 'yes'
     let consent = function() {
-      // set the index to the next level of introductions
-      i++;
       // responsive voice reads the according introduction text
       speak(introductions[i]);
-      console.log(i);
+      // set the index to the next level of introductions
+      i++;
       // if the introduction levels are finished
-      if (i >= introductions.length - 1){
+      if (i >= introductions.length){
         // start the questionning
         doQuestionning();
       }
@@ -168,9 +172,10 @@ function doIntroduction () {
 function doQuestionning(data) {
   // at this point, the zoom is allowed on the sphere
   zoomAllowed = true;
-
   // get a random transition text
-  let i = Math.floor(Math.random() * transitions.length);
+  let i = int(random(0,questions.length));
+  console.log(i);
+  console.log(questions);
   // get a random question from the data array and remove it from the array
   question = questions.splice(Math.random() * questions.length, 1)[0];
 
@@ -195,7 +200,7 @@ function doQuestionning(data) {
 // function to read and record the user's oral response to the questions
 function getResponse() {
   // slowly display the instructions
-  $("instructions").fadeIn("slow");
+    $("#instructionsDiv").fadeIn("slow");
   // Tell recorder to record to a p5.SoundFile which we will use for playback
   recorder.record(soundFile);
   // get the written version of the user's response
@@ -221,6 +226,8 @@ function getResponse() {
       recorder.stop();
       // push the sound file to the recordings array
       recordings.push(soundFile);
+      // slowly remove the instructions
+        $("#instructionsDiv").fadeOut("slow");
       // go to the next question
       doQuestionning();
     }

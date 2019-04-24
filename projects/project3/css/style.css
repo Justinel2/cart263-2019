@@ -44,9 +44,9 @@ body {
   height: 100%;
 }
 
-#instructions {
+#instructionsDiv {
   display: none;
-  margin-top: 30%;
+  /* margin-top: 30%; */
   height: 30%;
 }
 
