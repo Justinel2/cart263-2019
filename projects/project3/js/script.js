@@ -1,4 +1,4 @@
-let dataToggle = false;
+let zoomAllowed = false;
 /*****************
 SURF THE WEB AS
 ******************/
@@ -32,8 +32,6 @@ let started = false;
 
 function setup() {
 
-  $('#actions').css("display","visible");
-
   $.getJSON('data/data.json', getData);
   $('input').on('click', removeValue);
   $('#submit-button').on('click',getID);
@@ -66,7 +64,7 @@ function getData(data) {
 function draw() {
 
   displaySun();
-  displayBrutal();
+  // displayBrutal();
 }
 
 function getID() {
@@ -83,10 +81,10 @@ function getID() {
 }
 
 function doIntroduction () {
-  // users must manually enable their browser microphone for recording to work properly!
-  mic.start();
   if (annyang) {
     annyang.start();
+    // users must manually enable their browser microphone for recording to work properly!
+    mic.start();
     let i = 0;
     introductions[i] = ("Hello " + $id[0] + ". " + introductions[0]);
     speak(introductions[i]);
@@ -109,7 +107,7 @@ function doIntroduction () {
 }
 
 function doQuestionning(data) {
-  dataToggle = true;
+  zoomAllowed = true;
   console.log("doQuestionning");
   let i = Math.floor(Math.random() * transitions.length);
   question = questions.splice(Math.random() * questions.length, 1)[0];
@@ -190,24 +188,29 @@ function displaySun(){
   }
 }
 
-function displayBrutal() {
-  if (sun.position.z <= 50 && sun.position.y < 5) {
+function getBrutalData() {
+  // if (sun.position.z <= 50 && sun.position.y < 5) {
     var data = "";
+    var par;
     if (responses.length >= 1) {
 
       for (var i = 0; i < responses.length; i++) {
         data += responses[i];
       }
-      var par = $id[0] + ", " + $id[1] + ", " + $id[2] + ", <br><br>" + data;
+      par = $id[0] + ", " + $id[1] + ", " + $id[2] + ", <br><br>" + data;
       $( "#data" ).text(par);
     }
-    else {
-      $( "#data" ).text(data);
+    if (responses.length < 1) {
+      par = $id[0] + ", " + $id[1] + ", " + $id[2];
+      $( "#data" ).text(par);
     }
-    $( "#dataDiv" ).fadeIn(100 );
-  }
+      console.log("data should appear");
+      $( "#dataDiv" ).fadeIn("slow");
 }
 
+function hideBrutalData() {
+  $( "#dataDiv" ).fadeOut("slow");
+}
 
 
 
@@ -312,15 +315,6 @@ function GenerateBg(conf) {
     camera.position.z = 60;
     camera.position.y = 0.000;
   }
-
-  // function getMaterialPlane() {
-  //   // set canvas as bumpmap
-  //   materialPlane.bumpMap = new THREE.TextureLoader.load( "/assets/images/skin_DISP.png" );
-  //   materialPlane.bumpScale = 0.8;
-  //   materialPlane.displacementMap = new THREE.TextureLoader.load( "/assets/images/skin_DISP.png" );
-  //   materialPlane.displacementScale = 30;
-  // }
-
 
   function initLights() {
     const r = 30;
@@ -446,8 +440,8 @@ function GenerateBg(conf) {
 	  // calculate objects intersecting the picking ray
 	  var intersects = raycaster.intersectObject(sun);
     // console.log(intersects[0]);
-    if (intersects[0] != undefined && dataToggle == true) {
-      console.log(intersects[0]);
+    if (intersects[0] != undefined && zoomAllowed == true) {
+      // console.log(intersects[0]);
   	  for ( var i = 0; i < intersects.length; i++ ) {
           if (sun.position.z < 50) {
             sun.translateZ(1);
@@ -455,26 +449,23 @@ function GenerateBg(conf) {
           if (sun.position.y >= 5) {
             sun.translateY(-1);
           }
+          else {
+            getBrutalData();
+          }
   	  }
     }
-    if (intersects[0] === undefined && dataToggle == true) {
-      console.log("should dezoom");
+    if (intersects[0] === undefined && zoomAllowed == true) {
+      // console.log("should dezoom");
       if (sun.position.z > posZ) {
         sun.translateZ(-1)
       }
       if (sun.position.y < posY) {
         sun.translateY(1);
       }
-
+      // else {
+        hideBrutalData();
+      // }
     }
-
-    // for ( var i = 0; i < intersects.length; i++ ) {
-    //
-    //   generateBrutal();
-    //   // intersects[i].position.z += 1;
-		//     // intersects[ i ].object.material.color.set( 0xff0000 );
-    //
-	  // }
     renderer.render(scene, camera);
   }
 }

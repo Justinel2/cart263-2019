@@ -38,8 +38,9 @@ body {
   color: white;
 }
 
-.dataDiv {
+#dataDiv {
   display: none;
+  position: absolute;
   height: 100%;
 }
 
