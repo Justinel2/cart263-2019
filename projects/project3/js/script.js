@@ -1,7 +1,8 @@
-
+let dataToggle = false;
 /*****************
 SURF THE WEB AS
 ******************/
+
 GenerateBg({ el: 'background' });
 
 "use strict";
@@ -24,9 +25,10 @@ let mic, recorder, soundFile, amplitude;
 let loop = 0;
 let recordings = [];
 let volume = 0;
-let started = false;
 
 var sun;
+
+let started = false;
 
 function setup() {
 
@@ -62,7 +64,9 @@ function getData(data) {
 }
 
 function draw() {
+
   displaySun();
+  displayBrutal();
 }
 
 function getID() {
@@ -105,6 +109,7 @@ function doIntroduction () {
 }
 
 function doQuestionning(data) {
+  dataToggle = true;
   console.log("doQuestionning");
   let i = Math.floor(Math.random() * transitions.length);
   question = questions.splice(Math.random() * questions.length, 1)[0];
@@ -185,6 +190,23 @@ function displaySun(){
   }
 }
 
+function displayBrutal() {
+  if (sun.position.z <= 50 && sun.position.y < 5) {
+    var data = "";
+    if (responses.length >= 1) {
+
+      for (var i = 0; i < responses.length; i++) {
+        data += responses[i];
+      }
+      var par = $id[0] + ", " + $id[1] + ", " + $id[2] + ", <br><br>" + data;
+      $( "#data" ).text(par);
+    }
+    else {
+      $( "#data" ).text(data);
+    }
+    $( "#dataDiv" ).fadeIn(100 );
+  }
+}
 
 
 
@@ -229,6 +251,9 @@ function GenerateBg(conf) {
   const mousePlane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0);
   const mousePosition = new THREE.Vector3();
   const raycaster = new THREE.Raycaster();
+
+  let posY = 60;
+  let posZ = 10;
 
   init();
 
@@ -281,7 +306,8 @@ function GenerateBg(conf) {
     plane.rotation.x = -Math.PI / 2 - 0.2;
     plane.position.y = -25;
 
-    sun.position.y = 60;
+    sun.position.y = posY;
+    sun.position.z = posZ;
 
     camera.position.z = 60;
     camera.position.y = 0.000;
@@ -405,7 +431,6 @@ function GenerateBg(conf) {
 	}
 
   function onMouseMove( event ) {
-    console.log("mouse moves");
   	// calculate mouse position in normalized device coordinates
   	// (-1 to +1) for both components
 
@@ -419,14 +444,37 @@ function GenerateBg(conf) {
 	  raycaster.setFromCamera( mouse, camera );
 
 	  // calculate objects intersecting the picking ray
-	  var intersects = raycaster.intersectObject( scene.getObjectByName( "sun" ) );
+	  var intersects = raycaster.intersectObject(sun);
+    // console.log(intersects[0]);
+    if (intersects[0] != undefined && dataToggle == true) {
+      console.log(intersects[0]);
+  	  for ( var i = 0; i < intersects.length; i++ ) {
+          if (sun.position.z < 50) {
+            sun.translateZ(1);
+          }
+          if (sun.position.y >= 5) {
+            sun.translateY(-1);
+          }
+  	  }
+    }
+    if (intersects[0] === undefined && dataToggle == true) {
+      console.log("should dezoom");
+      if (sun.position.z > posZ) {
+        sun.translateZ(-1)
+      }
+      if (sun.position.y < posY) {
+        sun.translateY(1);
+      }
 
-	  for ( var i = 0; i < intersects.length; i++ ) {
+    }
 
-      console.log("DO BRUTAL CODE");
-		    // intersects[ i ].object.material.color.set( 0xff0000 );
-
-	  }
+    // for ( var i = 0; i < intersects.length; i++ ) {
+    //
+    //   generateBrutal();
+    //   // intersects[i].position.z += 1;
+		//     // intersects[ i ].object.material.color.set( 0xff0000 );
+    //
+	  // }
     renderer.render(scene, camera);
   }
 }
