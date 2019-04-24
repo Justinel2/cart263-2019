@@ -42,11 +42,15 @@ body {
   display: none;
   position: absolute;
   height: 100%;
+  margin-top: -25%;
+}
+
+#instru-start {
+  margin-top: -15%;
 }
 
 #instructionsDiv {
   display: none;
-  /* margin-top: 30%; */
   height: 30%;
 }
 

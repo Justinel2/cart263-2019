@@ -29,7 +29,7 @@ GenerateBg({ el: 'background' });
 // VARIABLES (page actions)
 
 // responsive voice texts
-let introductions = ["I am your new friend. I'm really excited to meet you. Can you hear me?", "Good. Can I get to know you a little bit?", "Perfect. Let's start."];
+let introductions = ["I'm really excited to meet you. Can you hear me?", "Good. Can I get to know you a little bit?", "Perfect. Let's start."];
 let transitions = ["I see. ", "Awesome!", "Good! ", "So, ", "That's interesting. ", "Wow! I didn't expect that. And ", "Now, I wanna know "];
 let questions = [];
 let question;
@@ -174,8 +174,6 @@ function doQuestionning(data) {
   zoomAllowed = true;
   // get a random transition text
   let i = int(random(0,questions.length));
-  console.log(i);
-  console.log(questions);
   // get a random question from the data array and remove it from the array
   question = questions.splice(Math.random() * questions.length, 1)[0];
 
@@ -217,7 +215,6 @@ function getResponse() {
   // command when the user says 'done'
   var commands = {
     'done': function() {
-      console.log(completeResponse);
       // push the complete response to the response array
       responses.push(completeResponse);
       // re-define the complete response to empty
@@ -244,7 +241,6 @@ function playRecordings() {
   if (asked >= 1) {
     // get a random index number
     let i = int(random(0,recordings.length));
-    console.log(i);
     // play the random recording
     recordings[i].play();
   }
@@ -278,6 +274,8 @@ function displaySun(){
   if (sun.position.y > 20 && started === true) {
     // decrement its position by 1 (until desired position)
     sun.translateY(-1);
+    // remove the instructions of beginning
+    $('#instru-start').fadeOut("slow");
   }
   // if the sun is at the desired position
   if (sun.position.y <= 25) {
