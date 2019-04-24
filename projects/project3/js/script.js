@@ -1,6 +1,20 @@
 
 /*****************
-SURF THE WEB AS
+THE SIREN SONG
+Justine Lardeux
+
+Program that contains a responsive voice and speech recognition system (annyang)
+that is meant to interact with the user with questions (from data.json).
+
+The voice is embedded in a sphere, sun-like entity, that will retain the user's responses.
+
+If the user hover on the entity, the entity approaches so the user can see the knowledge
+that it contains. The 3D scene, camera, objects and animation are made with three.js library.
+
+If the user scrolls down to go under the skin/water, the user can listen to himself through
+iterations of recordings. This process is made with p5.js and p5.sound.js
+
+The overall code is made from JQuery.
 ******************/
 
 // Boolean that gives authorization to the user to zoom on the sun on hover
@@ -633,7 +647,7 @@ function GenerateBg(conf) {
       // hide the stored data
       hideBrutalData();
     }
-    
+
     // render the scene and the camera
     renderer.render(scene, camera);
   }
