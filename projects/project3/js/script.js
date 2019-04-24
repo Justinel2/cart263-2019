@@ -108,7 +108,7 @@ function doIntroduction () {
 
 function doQuestionning(data) {
   zoomAllowed = true;
-  console.log("doQuestionning");
+
   let i = Math.floor(Math.random() * transitions.length);
   question = questions.splice(Math.random() * questions.length, 1)[0];
   if (asked == 0) {
@@ -122,6 +122,8 @@ function doQuestionning(data) {
 }
 
 function getResponse() {
+  $("#instructions").fadeIn("slow");
+
   var completeResponse = "";
   // Tell recorder to record to a p5.SoundFile which we will use for playback
   recorder.record(soundFile);
@@ -136,6 +138,7 @@ function getResponse() {
   var commands = {
     'done': function() {
       // annyang.pause();
+      $("#instructions").fadeIn("slow");
       responses.push(completeResponse);
       completeResponse = "";
       annyang.start();

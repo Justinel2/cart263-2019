@@ -44,6 +44,12 @@ body {
   height: 100%;
 }
 
+#instructions {
+  display: none;
+  margin-top: 30%;
+  height: 30%;
+}
+
 input {
   text-align: center;
   border: 0;
