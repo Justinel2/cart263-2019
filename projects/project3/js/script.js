@@ -1,6 +1,6 @@
 
 /*****************
-THE SIREN SONG
+INVISIBLE
 Justine Lardeux
 
 Program that contains a responsive voice and speech recognition system (annyang)
@@ -16,6 +16,9 @@ If the user scrolls down to go under the skin/water, the user can listen to hims
 iterations of recordings. This process is made with p5.js and p5.sound.js
 
 The overall code is made from JQuery.
+
+Questions from: https://conversationstartersworld.com/questions-to-get-to-know-someone/
+ and by me
 ******************/
 
 // Boolean that gives authorization to the user to zoom on the sun on hover
